@@ -13,6 +13,5 @@ def read_image(file) -> str:
 
 if __name__ == '__main__':
     text = read_image(
-        '/Users/madhurima/PycharmProjects/ReceiptManagement/MainReader'
-        '/Pictures to test/TheCurator-3140.jpg')
+        '/Users/madhurima/PycharmProjects/ReceiptManagement/MainReader/Pictures to test/invoice-date-box.jpg')
     print(text)
