@@ -3,11 +3,14 @@ from google.cloud import language
 from google.cloud.language import enums
 from google.cloud.language import types
 from google.oauth2 import service_account
+import os
+import json
 
 
 def main():
-    credentials = service_account.Credentials.from_service_account_file(
-        "")
+    cred_dict = json.loads(os.environ['GOOGLE_APPLICATION_CREDENTIALS'])
+    credentials = service_account.Credentials.from_service_account_info(
+        cred_dict)
     # Instantiates a client
     client = language.LanguageServiceClient(credentials=credentials)
 
