@@ -63,7 +63,5 @@ def classify(text, verbose=True):
 
 
 if __name__ == '__main__':
-    # text_content = "Jeans are a type of pants or trousers, typically made from denim or dungaree cloth. Often the term 'jeans' refers to a particular style of trousers, called 'blue jeans', which were invented by Jacob W. Davis in partnership with Levi Strauss & Co. in 1871[1] and patented by Jacob W. Davis and Levi Strauss on May 20, 1873. Prior to the Levi Strauss patented trousers, the term 'blue jeans' had been long in use for various garments (including trousers, overalls, and coats), constructed from blue-colored denim."
-    # classify(text_content)
-    for summary in find_summaries_wiki(['nerds']):
+    for summary in find_summaries_wiki(['garlic bread', 'jeans', 'watch']):
         classify(summary)
