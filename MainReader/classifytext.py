@@ -1,5 +1,5 @@
 # Imports the Google Cloud client library
-from typing import List
+from typing import List, Dict, Tuple
 import wikipedia
 
 from google.cloud import language
@@ -29,7 +29,7 @@ def find_summaries_wiki(lst_of_items: List[str]) -> List[str]:
     return lst_summaries
 
 
-def classify(text, verbose=True):
+def classify(text, verbose=True) -> str:
     """Classify the input text into categories. """
 
     cred_dict = json.loads(os.environ['GOOGLE_APPLICATION_CREDENTIALS'])
@@ -52,16 +52,38 @@ def classify(text, verbose=True):
         # be treated as a sparse vector.
         result[category.name] = category.confidence
 
-    if verbose:
-        print(text)
-        for category in categories:
-            print(u'=' * 20)
-            print(u'{:<16}: {}'.format('category', category.name))
-            print(u'{:<16}: {}'.format('confidence', category.confidence))
+    item_category = ''
 
-    return result
+    for category1 in result:
+        max_confidence = result[category1]
+        item_category = category1
+        for category2 in result:
+            if (category1 != category2) and max_confidence < result[category2]:
+                item_category = category2
+                max_confidence = result[category2]
+
+    count = 0
+    category = ''
+
+    for ch in item_category:
+        if ch == "/":
+            count += 1
+        if count < 2:
+            category = category + ch
+
+    return category
+
+
+def create_categories(lst_of_items: List[str]) -> Dict:
+    lst_of_summaries = find_summaries_wiki(lst_of_items)
+    lst_item_categories = {}
+    for i in range(len(lst_of_items)):
+        lst_item_categories[lst_of_items[i]] = classify(lst_of_summaries[i])
+    return lst_item_categories
 
 
 if __name__ == '__main__':
-    for summary in find_summaries_wiki(['garlic bread', 'jeans', 'watch']):
-        classify(summary)
+    lst_item_categories = create_categories(
+        ['garlic bread', 'water', 'cadbury'])
+    for item in lst_item_categories:
+        print(item + ":" + lst_item_categories[item])
