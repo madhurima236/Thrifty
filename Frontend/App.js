@@ -12,39 +12,6 @@ import * as firebase from 'firebase';
 import { firebaseConfig } from './config';
 firebase.initializeApp(firebaseConfig);
 
-function HomeScreen({ navigation }) {
-  return (
-    <Button
-      title="Go to profile"
-      onPress={() => navigation.navigate("Profile")}
-    />
-  );
-}
-
-function Profile({ navigation }) {
-  return (
-    <Button
-      title="Go to camera"
-      onPress={() => navigation.navigate("Camera")}
-    />
-  );
-}
-
-function Camera({ navigation }) {
-  return (
-    <Button
-      title="Go to statistics"
-      onPress={() => navigation.navigate("Statistics")}
-    />
-  );
-}
-
-function Statistics({ navigation }) {
-  return (
-    <Button title="Go to home" onPress={() => navigation.navigate("Profile")} />
-  );
-}
-
 const Stack = createStackNavigator();
 
 const AppSwitchNavigator = createSwitchNavigator({
@@ -69,14 +36,6 @@ const styles = StyleSheet.create({
 export default function App() {
   return (
     <View style={styles.container}>
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Camera" component={Camera} />
-        <Stack.Screen name="Statistics" component={Statistics} />
-      </Stack.Navigator>
-    </NavigationContainer>
     < AppNavigator />
     </View>
   );
