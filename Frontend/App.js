@@ -43,7 +43,7 @@ export default function App() {
     <View style={styles.container}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Dashboard" component={DashboardScreen} />
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="Camera" component={Camera} />
           <Stack.Screen name="Statistics" component={Statistics} />
