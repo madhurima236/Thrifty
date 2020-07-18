@@ -8,9 +8,9 @@ import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import LoginScreen from "./Screens/LoginScreen";
 import LoadingScreen from "./Screens/LoadingScreen";
 import DashboardScreen from "./Screens/DashboardScreen";
-import Profile from "./Screens/Profile";
-import Statistics from "./Screens/Statistics";
-import Camera from "./Screens/Camera";
+// import Profile from "./Screens/Profile";
+// import Statistics from "./Screens/Statistics";
+// import Camera from "./Screens/Camera";
 
 import * as firebase from "firebase";
 import { firebaseConfig } from "./config";
@@ -22,9 +22,9 @@ const AppSwitchNavigator = createSwitchNavigator({
   LoadingScreen: LoadingScreen,
   LoginScreen: LoginScreen,
   DashboardScreen: DashboardScreen,
-  Profile: Profile,
-  Camera: Camera,
-  Statistics: Statistics,
+  // Profile: Profile,
+  // Camera: Camera,
+  // Statistics: Statistics,
 });
 
 const AppNavigator = createAppContainer(AppSwitchNavigator);
@@ -41,14 +41,6 @@ const styles = StyleSheet.create({
 export default function App() {
   return (
     <View style={styles.container}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Dashboard" component={DashboardScreen} />
-          <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="Camera" component={Camera} />
-          <Stack.Screen name="Statistics" component={Statistics} />
-        </Stack.Navigator>
-      </NavigationContainer>
       <AppNavigator />
     </View>
   );
