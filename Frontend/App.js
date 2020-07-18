@@ -1,14 +1,38 @@
-import { StatusBar } from "expo-status-bar";
-import * as React from "react";
-import { View, Text } from "react-native";
+import React from "react";
+import { Button, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home Screen</Text>
-    </View>
+    <Button
+      title="Go to profile"
+      onPress={() => navigation.navigate("Profile")}
+    />
+  );
+}
+
+function Profile({ navigation }) {
+  return (
+    <Button
+      title="Go to camera"
+      onPress={() => navigation.navigate("Camera")}
+    />
+  );
+}
+
+function Camera({ navigation }) {
+  return (
+    <Button
+      title="Go to statistics"
+      onPress={() => navigation.navigate("Statistics")}
+    />
+  );
+}
+
+function Statistics({ navigation }) {
+  return (
+    <Button title="Go to home" onPress={() => navigation.navigate("Profile")} />
   );
 }
 
@@ -19,27 +43,12 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Camera" component={Camera} />
+        <Stack.Screen name="Statistics" component={Statistics} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 export default App;
-
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Open up App.js to start working on your app!</Text>
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-// });
