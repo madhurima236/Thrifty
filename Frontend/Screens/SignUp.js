@@ -1,4 +1,4 @@
-// components/login.js
+// components/signup.js
 
 import React, { Component } from "react";
 import {
@@ -12,10 +12,11 @@ import {
 } from "react-native";
 import firebase from "../Database/firebase";
 
-export default class Login extends Component {
+export default class Signup extends Component {
   constructor() {
     super();
     this.state = {
+      displayName: "",
       email: "",
       password: "",
       isLoading: false,
@@ -28,25 +29,28 @@ export default class Login extends Component {
     this.setState(state);
   };
 
-  userLogin = () => {
+  registerUser = () => {
     if (this.state.email === "" && this.state.password === "") {
-      Alert.alert("Enter details to signin!");
+      Alert.alert("Enter details to signup!");
     } else {
       this.setState({
         isLoading: true,
       });
       firebase
         .auth()
-        .signInWithEmailAndPassword(this.state.email, this.state.password)
+        .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then((res) => {
-          console.log(res);
-          console.log("User logged-in successfully!");
+          res.user.updateProfile({
+            displayName: this.state.displayName,
+          });
+          console.log("User registered successfully!");
           this.setState({
             isLoading: false,
+            displayName: "",
             email: "",
             password: "",
           });
-          this.props.navigation.navigate("Dashboard");
+          this.props.navigation.navigate("Login");
         })
         .catch((error) => this.setState({ errorMessage: error.message }));
     }
@@ -64,6 +68,12 @@ export default class Login extends Component {
       <View style={styles.container}>
         <TextInput
           style={styles.inputStyle}
+          placeholder="Name"
+          value={this.state.displayName}
+          onChangeText={(val) => this.updateInputVal(val, "displayName")}
+        />
+        <TextInput
+          style={styles.inputStyle}
           placeholder="Email"
           value={this.state.email}
           onChangeText={(val) => this.updateInputVal(val, "email")}
@@ -78,15 +88,15 @@ export default class Login extends Component {
         />
         <Button
           color="#3740FE"
-          title="Signin"
-          onPress={() => this.userLogin()}
+          title="Signup"
+          onPress={() => this.registerUser()}
         />
 
         <Text
           style={styles.loginText}
-          onPress={() => this.props.navigation.navigate("Signup")}
+          onPress={() => this.props.navigation.navigate("Login")}
         >
-          Don't have account? Click here to signup
+          Already Registered? Click here to login
         </Text>
       </View>
     );
