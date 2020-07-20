@@ -64,7 +64,7 @@ def classify(text) -> str:
 
 
 class Receipt:
-    filepath = ""
+    filepath = " "
     date = ""
     items_to_price = {}
     categories_to_price = {}
@@ -129,7 +129,5 @@ class Receipt:
 
 
 if __name__ == '__main__':
-    receipt = Receipt('/Users/madhurima/PycharmProjects/ReceiptManagement/MainReader/WalmartReceipts/Screenshot 2020-07-20 at 6.01.34 PM.png')
-    receipt.filepath = '/Users/madhurima/PycharmProjects/ReceiptManagement/MainReader/WalmartReceipts/Screenshot 2020-07-20 at 6.01.34 PM.png'
-    receipt.get_data()
-    print(receipt.items_to_price)
+    receipt = Receipt()
+
