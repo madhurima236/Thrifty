@@ -3,6 +3,46 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 import firebase from "../Database/firebase";
+import { createStackNavigator } from "@react-navigation/stack";
+
+import Login from "./LoginScreen";
+import Signup from "./SignUp";
+
+const Stack = createStackNavigator();
+
+function MyStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Signup"
+      screenOptions={{
+        headerTitleAlign: "center",
+        headerStyle: {
+          backgroundColor: "#3740FE",
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+      }}
+    >
+      <Stack.Screen
+        name="Signup"
+        component={Signup}
+        options={{ title: "Signup" }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={({ title: "Login" }, { headerLeft: null })}
+      />
+      <Stack.Screen
+        name="Dashboard"
+        component={DashboardScreen}
+        options={({ title: "Dashboard" }, { headerLeft: null })}
+      />
+    </Stack.Navigator>
+  );
+}
 
 export default class DashboardScreen extends Component {
   constructor() {
@@ -11,7 +51,6 @@ export default class DashboardScreen extends Component {
       uid: "",
     };
   }
-
   signOut = () => {
     firebase
       .auth()
@@ -21,18 +60,17 @@ export default class DashboardScreen extends Component {
       })
       .catch((error) => this.setState({ errorMessage: error.message }));
   };
-
   render() {
     this.state = {
       displayName: firebase.auth().currentUser.displayName,
       uid: firebase.auth().currentUser.uid,
     };
     return (
-      <View style={styles.container}>
-        <Text style={styles.textStyle}>Hello, {this.state.displayName}</Text>
-
-        <Button color="#3740FE" title="Logout" onPress={() => this.signOut()} />
-      </View>
+      <MyStack />
+      // <View style={styles.container}>
+      //   <Text style={styles.textStyle}>Hello, {this.state.displayName}</Text>
+      //   <Button color="#3740FE" title="Logout" onPress={() => this.signOut()} />
+      // </View>
     );
   }
 }
