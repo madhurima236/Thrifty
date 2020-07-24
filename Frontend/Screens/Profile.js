@@ -1,5 +1,15 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
+import {
+  Icon,
+  Container,
+  Content,
+  Header,
+  Left,
+  Right,
+  Body,
+  Button,
+} from "native-base";
 
 class Profile extends Component {
   render() {

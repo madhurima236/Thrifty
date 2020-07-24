@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator();
 
 function MyTabs() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator initialRouteName="Profile">
       <Tab.Screen name="Camera" component={Camera} />
       <Tab.Screen name="Statistics" component={Statistics} />
       <Tab.Screen name="Profile" component={Profile} />
