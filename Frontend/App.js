@@ -8,30 +8,29 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Login from "./Screens/LoginScreen";
 import Signup from "./Screens/SignUp";
 import DashboardScreen from "./Screens/DashboardScreen";
-import Camera from "./Screens/Camera";
-import Profile from "./Screens/Profile";
-import Statistics from "./Screens/Statistics";
+// import Camera from "./Screens/Camera";
+// import Profile from "./Screens/Profile";
+// import Statistics from "./Screens/Statistics";
 
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
 
-function MyTabs() {
-  return (
-    <Tab.Navigator initialRouteName="Profile">
-      <Tab.Screen name="Camera" component={Camera} />
-      <Tab.Screen name="Statistics" component={Statistics} />
-      <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Dashboard" component={DashboardScreen} />
-    </Tab.Navigator>
-  );
-}
+// function MyTabs() {
+//   return (
+//     <Tab.Navigator initialRouteName="Profile">
+//       <Tab.Screen name="Profile" component={Profile} />
+//       <Tab.Screen name="Camera" component={Camera} />
+//       <Tab.Screen name="Statistics" component={Statistics} />
+//     </Tab.Navigator>
+//   );
+// }
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <MyTabs />
-    </NavigationContainer>
-  );
-}
+// export default function App() {
+//   return (
+//     <NavigationContainer>
+//       <MyTabs />
+//     </NavigationContainer>
+//   );
+// }
 
 // import { StatusBar } from "expo-status-bar";
 // import * as React from "react";
@@ -52,66 +51,46 @@ export default function App() {
 // import { firebaseConfig } from "./config";
 // firebase.initializeApp(firebaseConfig);
 
-// const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 
-// // const AppSwitchNavigator = createSwitchNavigator({
-// //   LoadingScreen: LoadingScreen,
-// //   LoginScreen: LoginScreen,
-// //   DashboardScreen: DashboardScreen,
-// //   Profile: Profile,
-// //   Camera: Camera,
-// //   Statistics: Statistics,
-// // });
+function MyStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Signup"
+      screenOptions={{
+        headerTitleAlign: "center",
+        headerStyle: {
+          backgroundColor: "#3740FE",
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+      }}
+    >
+      <Stack.Screen
+        name="Signup"
+        component={Signup}
+        options={{ title: "Signup" }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={({ title: "Login" }, { headerLeft: null })}
+      />
+      <Stack.Screen
+        name="Dashboard"
+        component={DashboardScreen}
+        options={({ title: "Dashboard" }, { headerLeft: null })}
+      />
+    </Stack.Navigator>
+  );
+}
 
-// // const AppNavigator = createAppContainer(AppSwitchNavigator);
-
-// function MyStack() {
-//   return (
-//     <Stack.Navigator
-//       initialRouteName="Signup"
-//       screenOptions={{
-//         headerTitleAlign: "center",
-//         headerStyle: {
-//           backgroundColor: "#3740FE",
-//         },
-//         headerTintColor: "#fff",
-//         headerTitleStyle: {
-//           fontWeight: "bold",
-//         },
-//       }}
-//     >
-//       <Stack.Screen
-//         name="Signup"
-//         component={Signup}
-//         options={{ title: "Signup" }}
-//       />
-//       <Stack.Screen
-//         name="Login"
-//         component={Login}
-//         options={({ title: "Login" }, { headerLeft: null })}
-//       />
-//       <Stack.Screen
-//         name="Dashboard"
-//         component={DashboardScreen}
-//         options={({ title: "Dashboard" }, { headerLeft: null })}
-//       />
-//     </Stack.Navigator>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-// });
-
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <MyStack />
-//     </View>
-//   );
-// }
+export default function App() {
+  return (
+    <NavigationContainer>
+      <MyStack />
+    </NavigationContainer>
+  );
+}
