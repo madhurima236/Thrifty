@@ -17,6 +17,10 @@ import cv2
 import pytesseract
 from PIL import Image
 from datetime import date
+from requests_html import HTMLSession
+from bs4 import BeautifulSoup
+
+import urllib
 
 
 def classify(text) -> str:
@@ -90,21 +94,55 @@ class Receipt:
                             'change due', 'tant', 'sub total', 'hst']
         to_ignore = False
 
-        pattern_line = re.compile(r'([A-Za-z][A-Za-z ]*).* (\d+\.\d+)')
+        pattern_line = re.compile(r'([A-Za-z][A-Za-z ]*).*(\d{12}?).* (\d+\.\d+)')
 
         items = {}
         for matches_line in pattern_line.findall(text):
+            print(matches_line)
             if matches_line[0].strip().lower() not in ignore_items_lst and not to_ignore:
                 if matches_line[0].strip() not in items:
-                    items[matches_line[0].strip()] = float(matches_line[1])
+                    items[matches_line[0].strip()] = float(matches_line[2])
                 else:
-                    items[matches_line[0].strip()] += float(matches_line[1])
+                    items[matches_line[0].strip()] += float(matches_line[2])
             else:
                 to_ignore = True
                 if matches_line[0].strip().lower() == 'total':
-                    self.total += float(matches_line[1])
+                    self.total += float(matches_line[2])
+
+            if matches_line[1] != '':
+                try:
+                    session = HTMLSession()
+                    print('http://www.walmart.com/search/?query=' + matches_line[1])
+                    res = session.get('http://www.walmart.com/search/?query=' + matches_line[1])
+                    soup = BeautifulSoup(res.html.html, 'html.parser')
+                    links = soup.find_all('a', {'class': 'product-title-link'})
+                    if len(links) == 0:
+                        print('http://www.walmart.com/search/?query=' +
+                              urllib.parse.quote(matches_line[0].strip()))
+                        res = session.get(
+                            'http://www.walmart.com/search/?query=' +
+                            urllib.parse.quote(matches_line[0].strip()))
+                        soup = BeautifulSoup(res.html.html, 'html.parser')
+                        links = soup.find_all('a',
+                                              {'class': 'product-title-link'})
+                    link_str = links[0]['href']
+                    res_2 = session.get('https://www.walmart.com' + link_str)
+                    soup_2 = BeautifulSoup(res_2.html.html, 'html.parser')
+                    divs = soup_2.find_all('div', {'class': 'about-product-description'})
+                    contents = divs[0].contents
+                    text = self._extract_text(contents)
+                    print(classify(text))
+                except:
+                    print(matches_line[0] + ' not found on walmart.com')
 
         self.items_to_price = items
+
+    def _extract_text(self, lst):
+        for element in lst:
+            if isinstance(element, str):
+                return element
+            elif element.name == 'p':
+                return element.contents[0]
 
     def _find_summaries_wiki(self) -> Dict:
         item_to_summaries = {}
@@ -149,8 +187,7 @@ class Receipt:
 
 
 if __name__ == '__main__':
-    receipt = Receipt('/Users/madhurima/PycharmProjects/ReceiptManagement/MainReader/WalmartReceipts/receipt-ocr-original.jpg.png')
+    receipt = Receipt('/Users/AdvayaGupta/Desktop/Coding/Thrifty/MainReader/WalmartReceipts/receipt-ocr-original.jpg.png')
     receipt.get_data()
     print(receipt.items_to_price)
     print(receipt.total)
-    # detect_text("
