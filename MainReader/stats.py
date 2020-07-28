@@ -1,20 +1,44 @@
 import numpy as np
 import matplotlib.pyplot as plt
-class stats:
-    def __init__(self):
-        pass
-    def piechart(self):
-        months=['January','February','March','April','May','June','July','August','September','October','November','December']
-        prices=[50,50,50,50,50,50,50,50,50,50,50,50]
-        plt.pie(prices,labels=months,autopct='%0.1f%%')
+
+from MainReader.classifytext import *
+
+
+class Statistics:
+
+    receipt: Receipt
+    categories: List[str]
+    prices: List[float]
+
+    def __init__(self, receipt):
+        self.receipt = receipt
+        self.categories = []
+        self.prices = []
+        self.categories_and_prices()
+
+    def categories_and_prices(self) -> None:
+        for category in self.receipt.categories_to_price:
+            self.categories.append(category)
+            self.prices.append(self.receipt.categories_to_price[category])
+
+    def pie_chart(self):
+        plt.pie(self.prices, labels=self.categories, autopct='%0.1f%%')
         plt.show()
-    def bargraphs(self):
-        months=['January','February','March','April','May','June','July','August','September','October','November','December']
-        prices=[210,300,150,420,23,1,46,13,87,32,3,43]
-        ypos=np.arange(len(months))
-        plt.bar(ypos,prices)
-        plt.xticks(ypos,months)
+
+    def bar_graphs(self):
+        ypos = np.arange(len(self.categories))
+        plt.bar(ypos, self.prices, color="magenta")
+        plt.xticks(ypos, self.categories)
         plt.ylabel("EXPENDITURE")
-r1=stats()
-r1.piechart()
-r1.bargraphs()
+        plt.show()
+
+
+if __name__ == '__main__':
+    receipt = Receipt(
+        '/Users/madhurima/PycharmProjects/ReceiptManagement/MainReader'
+        '/WalmartReceipts/5c43798f9d036.image.jpg')
+    receipt.get_data()
+    receipt.create_categories()
+    receipt.calculate_cost()
+    receipt_stats = Statistics(receipt)
+    receipt_stats.bar_graphs()
