@@ -3,46 +3,25 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 import firebase from "../Database/firebase";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import Login from "./LoginScreen";
-import Signup from "./SignUp";
+import Camera from "./Camera";
+import Profile from "./Profile";
+import Statistics from "./Statistics";
+import Home from "./Home";
 
-// const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-// function MyStack() {
-//   return (
-//     <Stack.Navigator
-//       initialRouteName="Signup"
-//       screenOptions={{
-//         headerTitleAlign: "center",
-//         headerStyle: {
-//           backgroundColor: "#3740FE",
-//         },
-//         headerTintColor: "#fff",
-//         headerTitleStyle: {
-//           fontWeight: "bold",
-//         },
-//       }}
-//     >
-//       <Stack.Screen
-//         name="Signup"
-//         component={Signup}
-//         options={{ title: "Signup" }}
-//       />
-//       <Stack.Screen
-//         name="Login"
-//         component={Login}
-//         options={({ title: "Login" }, { headerLeft: null })}
-//       />
-//       <Stack.Screen
-//         name="Dashboard"
-//         component={DashboardScreen}
-//         options={({ title: "Dashboard" }, { headerLeft: null })}
-//       />
-//     </Stack.Navigator>
-//   );
-// }
+function MyTabs() {
+  return (
+    <Tab.Navigator initialRouteName="Home">
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Camera" component={Camera} />
+      <Tab.Screen name="Statistics" component={Statistics} />
+    </Tab.Navigator>
+  );
+}
 
 export default class DashboardScreen extends Component {
   constructor() {
@@ -66,11 +45,9 @@ export default class DashboardScreen extends Component {
       uid: firebase.auth().currentUser.uid,
     };
     return (
-      // <MyStack />
-      <View style={styles.container}>
-        <Text style={styles.textStyle}>Hello, {this.state.displayName}</Text>
-        <Button color="#3740FE" title="Logout" onPress={() => this.signOut()} />
-      </View>
+      <MyTabs />
+      /* <Text style={styles.textStyle}>Hello, {this.state.displayName}</Text>
+        <Button color="#3740FE" title="Logout" onPress={() => this.signOut()} /> */
     );
   }
 }
