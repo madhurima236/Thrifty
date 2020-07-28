@@ -103,7 +103,7 @@ class Receipt:
         image = cv2.imread(self.filepath, cv2.IMREAD_GRAYSCALE)
         _, image_enhanced = cv2.threshold(image, 180, 255, cv2.THRESH_BINARY)
         image_enhanced = cv2.bilateralFilter(image_enhanced, 9, 75, 75)
-        # cv2.imwrite("/Users/madhurima/PycharmProjects/ReceiptManagement/MainReader/WalmartReceipts/enhanced_image.png", image_enhanced)
+        # cv2.imwrite("/Users/madhurima/PycharmProjects/ReceiptManagement/Backend/WalmartReceipts/enhanced_image.png", image_enhanced)
         text = pytesseract.image_to_string(image_enhanced, lang='eng')
 
         # print(text)
@@ -217,7 +217,7 @@ class Receipt:
 
 if __name__ == '__main__':
     receipt = Receipt(
-        '/Users/madhurima/PycharmProjects/ReceiptManagement/MainReader/WalmartReceipts/receipt-ocr-original.jpg.png')
+        '/Backend/WalmartReceipts/receipt-ocr-original.jpg.png')
     receipt.get_data()
     receipt.create_categories()
     receipt.calculate_cost()
