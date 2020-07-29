@@ -1,8 +1,29 @@
+// import React, { useState, useEffect } from "react";
+// import { Text, View, TouchableOpacity } from "react-native";
+// import { Camera } from "expo-camera";
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
-//import { Camera } from "expo-camera";
 
-// export default function Camera extends Component() {
+class Media extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text> Media </Text>
+      </View>
+    );
+  }
+}
+export default Media;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
+
+// class Camera extends Component {
 //   const [hasPermission, setHasPermission] = useState(null);
 //   const [type, setType] = useState(Camera.Constants.Type.back);
 
@@ -54,26 +75,4 @@ import { View, Text, StyleSheet } from "react-native";
 //   );
 // }
 
-class Camera extends Component {
-  static navigationOptions = {
-    tabBarIcon: ({ tintColor }) => (
-      <Icon name="ios-add-circle" style={{ color: tintColor }} />
-    ),
-  };
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text> Camera </Text>
-      </View>
-    );
-  }
-}
-export default Camera;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+// export default Camera;

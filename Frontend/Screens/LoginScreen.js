@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import firebase from "../Database/firebase";
+import { Fontisto } from "@expo/vector-icons";
 
 export default class Login extends Component {
   constructor() {
@@ -46,7 +47,7 @@ export default class Login extends Component {
             email: "",
             password: "",
           });
-          this.props.navigation.navigate("Dashboard");
+          this.props.navigation.navigate("Thrifty");
         })
         .catch((error) => this.setState({ errorMessage: error.message }));
     }
@@ -62,6 +63,12 @@ export default class Login extends Component {
     }
     return (
       <View style={styles.container}>
+        <Fontisto
+          name="shopify"
+          size={150}
+          color="black"
+          style={{ height: 250 }}
+        />
         <TextInput
           style={styles.inputStyle}
           placeholder="Email"
@@ -77,7 +84,7 @@ export default class Login extends Component {
           secureTextEntry={true}
         />
         <Button
-          color="#3740FE"
+          color="#00d800"
           title="Sign in"
           onPress={() => this.userLogin()}
         />
@@ -99,6 +106,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    alignItems: "center",
     padding: 35,
     backgroundColor: "#fff",
   },
@@ -111,7 +119,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   loginText: {
-    color: "#3740FE",
+    color: "#00d800",
     marginTop: 25,
     textAlign: "center",
   },

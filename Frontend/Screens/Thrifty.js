@@ -4,8 +4,9 @@ import React, { Component } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 import firebase from "../Database/firebase";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Fontisto } from "@expo/vector-icons";
 
-import Camera from "./Camera";
+import Media from "./Media";
 import Profile from "./Profile";
 import Statistics from "./Statistics";
 import Home from "./Home";
@@ -17,13 +18,13 @@ function MyTabs() {
     <Tab.Navigator initialRouteName="Home">
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Camera" component={Camera} />
+      <Tab.Screen name="Media" component={Media} />
       <Tab.Screen name="Statistics" component={Statistics} />
     </Tab.Navigator>
   );
 }
 
-export default class DashboardScreen extends Component {
+export default class Thrifty extends Component {
   constructor() {
     super();
     this.state = {
@@ -44,11 +45,7 @@ export default class DashboardScreen extends Component {
       displayName: firebase.auth().currentUser.displayName,
       uid: firebase.auth().currentUser.uid,
     };
-    return (
-      <MyTabs />
-      /* <Text style={styles.textStyle}>Hello, {this.state.displayName}</Text>
-        <Button color="#3740FE" title="Logout" onPress={() => this.signOut()} /> */
-    );
+    return <MyTabs></MyTabs>;
   }
 }
 
