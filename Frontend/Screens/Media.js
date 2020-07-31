@@ -1,78 +1,118 @@
-// import React, { useState, useEffect } from "react";
-// import { Text, View, TouchableOpacity } from "react-native";
-// import { Camera } from "expo-camera";
-import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React from "react";
+import { Camera } from "expo-camera";
+import { View, Text } from "react-native";
+import * as Permissions from "expo-permissions";
 
-class Media extends Component {
+import Style from "./Style";
+import Toolbar from "./Toolbar";
+import Gallery from "./Gallery";
+
+export default class CameraPage extends React.Component {
+  camera = null;
+
+  state = {
+    captures: [],
+    capturing: null,
+    hasCameraPermission: null,
+    cameraType: Camera.Constants.Type.back,
+    flashMode: Camera.Constants.FlashMode.off,
+  };
+
+  setFlashMode = (flashMode) => this.setState({ flashMode });
+  setCameraType = (cameraType) => this.setState({ cameraType });
+  handleCaptureIn = () => this.setState({ capturing: true });
+
+  handleCaptureOut = () => {
+    if (this.state.capturing) this.camera.stopRecording();
+  };
+
+  handleShortCapture = async () => {
+    const photoData = await this.camera.takePictureAsync();
+    this.setState({
+      capturing: false,
+      captures: [photoData, ...this.state.captures],
+    });
+  };
+
+  handleLongCapture = async () => {
+    const videoData = await this.camera.recordAsync();
+    this.setState({
+      capturing: false,
+      captures: [videoData, ...this.state.captures],
+    });
+  };
+
+  async componentDidMount() {
+    const camera = await Permissions.askAsync(Permissions.CAMERA);
+    const audio = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
+    const hasCameraPermission =
+      camera.status === "granted" && audio.status === "granted";
+
+    this.setState({ hasCameraPermission });
+  }
+
   render() {
+    const {
+      hasCameraPermission,
+      flashMode,
+      cameraType,
+      capturing,
+      captures,
+    } = this.state;
+
+    if (hasCameraPermission === null) {
+      return <View />;
+    } else if (hasCameraPermission === false) {
+      return <Text>Access to camera has been denied.</Text>;
+    }
+
     return (
-      <View style={styles.container}>
-        <Text> Media </Text>
-      </View>
+      <React.Fragment>
+        <View>
+          <Camera
+            type={cameraType}
+            flashMode={flashMode}
+            style={styles.preview}
+            ref={(camera) => (this.camera = camera)}
+          />
+        </View>
+
+        {captures.length > 0 && <Gallery captures={captures} />}
+
+        <Toolbar
+          capturing={capturing}
+          flashMode={flashMode}
+          cameraType={cameraType}
+          setFlashMode={this.setFlashMode}
+          setCameraType={this.setCameraType}
+          onCaptureIn={this.handleCaptureIn}
+          onCaptureOut={this.handleCaptureOut}
+          onLongCapture={this.handleLongCapture}
+          onShortCapture={this.handleShortCapture}
+        />
+      </React.Fragment>
     );
   }
 }
-export default Media;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+// import React, { Component } from "react";
+// import { View, Text, StyleSheet } from "react-native";
 
-// class Camera extends Component {
-//   const [hasPermission, setHasPermission] = useState(null);
-//   const [type, setType] = useState(Camera.Constants.Type.back);
-
-//   useEffect(() => {
-//     (async () => {
-//       const { status } = await Camera.requestPermissionsAsync();
-//       setHasPermission(status === "granted");
-//     })();
-//   }, []);
-
-//   if (hasPermission === null) {
-//     return <View />;
+// class Media extends Component {
+//   render() {
+//     return (
+//       <View style={styles.container}>
+//         <Text> Media </Text>
+//       </View>
+//     );
 //   }
-//   if (hasPermission === false) {
-//     return <Text>No access to camera</Text>;
-//   }
-//   return (
-//     <View style={{ flex: 1 }}>
-//       <Camera style={{ flex: 1 }} type={type}>
-//         <View
-//           style={{
-//             flex: 1,
-//             backgroundColor: "transparent",
-//             flexDirection: "row",
-//           }}
-//         >
-//           <TouchableOpacity
-//             style={{
-//               flex: 0.1,
-//               alignSelf: "flex-end",
-//               alignItems: "center",
-//             }}
-//             onPress={() => {
-//               setType(
-//                 type === Camera.Constants.Type.back
-//                   ? Camera.Constants.Type.front
-//                   : Camera.Constants.Type.back
-//               );
-//             }}
-//           >
-//             <Text style={{ fontSize: 18, marginBottom: 10, color: "white" }}>
-//               {" "}
-//               Flip{" "}
-//             </Text>
-//           </TouchableOpacity>
-//         </View>
-//       </Camera>
-//     </View>
-//   );
 // }
+// export default Media;
 
-// export default Camera;
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: "center",
+//     justifyContent: "center",
+//   },
+// });
