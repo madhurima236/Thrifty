@@ -5,7 +5,6 @@ from Backend.classifytext import *
 
 
 class Statistics:
-
     categories_to_price: Dict[str, float]
     categories: List[str]
     prices: List[float]
@@ -22,19 +21,24 @@ class Statistics:
             self.prices.append(self.categories_to_price[category])
 
     def pie_chart(self):
-        plt.pie(self.prices, labels=self.categories, autopct='%0.1f%%')
+        plt.pie(self.prices, labels=self.categories, autopct='%0.1f%%',
+                labeldistance=1.3, radius=1.4)
+
         plt.show()
 
     def bar_graphs(self):
         ypos = np.arange(len(self.categories))
-        plt.bar(ypos, self.prices, color="magenta")
+
+        plt.ylabel('Categories', fontsize=8)
+        plt.title('Categories Vs Expenditure')
         plt.xticks(ypos, self.categories)
-        plt.ylabel("EXPENDITURE")
+        width = 0.6
+        plt.bar(ypos, self.prices, width, capsize=3, color="magenta")
+
         plt.show()
 
 
 class MultipleReceipts:
-
     receipts: List[Receipt]
     categories_to_prices: Dict[str, float]
 
@@ -62,11 +66,14 @@ class MultipleReceipts:
 
         self.receipts.append(receipt)
 
+
 if __name__ == '__main__':
     walmart_receipts = MultipleReceipts()
-    walmart_receipts.add_receipt("/Users/madhurima/PycharmProjects/ReceiptManagement/Backend/WalmartReceipts/5c43798f9d036.image.jpg")
+    walmart_receipts.add_receipt(
+        "/Users/madhurima/PycharmProjects/ReceiptManagement/Backend/WalmartReceipts/5c43798f9d036.image.jpg")
     receipt_stats = Statistics(walmart_receipts.categories_to_prices)
-    receipt_stats.bar_graphs()
-    walmart_receipts.add_receipt("/Users/madhurima/PycharmProjects/ReceiptManagement/Backend/WalmartReceipts/9C5Q9Rt.jpg")
-    receipt_stats = Statistics(walmart_receipts.categories_to_prices)
-    receipt_stats.bar_graphs()
+    receipt_stats.pie_chart()
+    # receipt_stats.bar_graphs()
+    # walmart_receipts.add_receipt("/Users/madhurima/PycharmProjects/ReceiptManagement/Backend/WalmartReceipts/9C5Q9Rt.jpg")
+    # receipt_stats = Statistics(walmart_receipts.categories_to_prices)
+    # receipt_stats.bar_graphs()
