@@ -70,7 +70,7 @@ class MultipleReceipts:
 if __name__ == '__main__':
     walmart_receipts = MultipleReceipts()
     walmart_receipts.add_receipt(
-        "/Users/madhurima/PycharmProjects/ReceiptManagement/Backend/WalmartReceipts/5c43798f9d036.image.jpg")
+        "/Users/soumy/PycharmProjects/Thrifty/Backend/WalmartReceipts/5c43798f9d036.image.jpg")
     receipt_stats = Statistics(walmart_receipts.categories_to_prices)
     receipt_stats.pie_chart()
     # receipt_stats.bar_graphs()

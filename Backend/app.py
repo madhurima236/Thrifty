@@ -8,3 +8,12 @@ CORS(app)
 @app.route('/', methods=['GET'])
 def hello_world():
     return 'Hello, World!', 200
+
+@app.route('/categorize', methods=['POST'])
+def categorize():
+    file = request.files['receipt']
+
+
+# 1. Category to items
+# 2. Pie Chart
+# 3. Bar Graph
