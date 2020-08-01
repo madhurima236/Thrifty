@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import firebase from "../Database/firebase";
 import { Fontisto } from "@expo/vector-icons";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default class Login extends Component {
   constructor() {
@@ -62,7 +63,17 @@ export default class Login extends Component {
       );
     }
     return (
-      <View style={styles.container}>
+      <KeyboardAwareScrollView style={{
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        padding: 35,
+        backgroundColor: "#fff",
+      }} 
+      contentContainerStyle={{
+        justifyContent: "center",
+        alignItems: "center"
+      }}>
         <Fontisto
           name="shopify"
           size={150}
@@ -95,7 +106,7 @@ export default class Login extends Component {
         >
           Don't have account? Click here to signup
         </Text>
-      </View>
+      </KeyboardAwareScrollView>
     );
   }
 }
