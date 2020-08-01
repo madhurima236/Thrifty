@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import firebase from "../Database/firebase";
 import { Fontisto } from "@expo/vector-icons";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default class Signup extends Component {
   constructor() {
@@ -72,11 +73,11 @@ export default class Signup extends Component {
         flexDirection: "column",
         padding: 35,
         backgroundColor: "#fff",
-      }} 
-      contentContainerStyle={{
-        justifyContent: "center",
-        alignItems: "center"
-      }}>
+      }}
+        contentContainerStyle={{
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
         <Fontisto
           name="shopify"
           size={150}
