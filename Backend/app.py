@@ -22,6 +22,7 @@ def categorize():
 
 
 
-# 1. Category to items - Done!
+# 1. Category to prices - Done!
+# 1.1 Categories to items
 # 2. Pie Chart
 # 3. Bar Graph
