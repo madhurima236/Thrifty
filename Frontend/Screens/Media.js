@@ -95,10 +95,45 @@
 //   }
 // }
 
-import React, { Component, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
+import * as ImageManipulator from "expo-image-manipulator";
+
+function uploadImageFetch(source, func) {
+
+  const data = new FormData();
+  let localUri = source.uri
+  let filename = localUri.split('/').pop();
+
+  // Infer the type of the image
+  let match = /\.(\w+)$/.exec(filename);
+  let type = match ? `image/${match[1]}` : `image`;
+
+  data.append('receipt', {
+    uri: localUri,
+    type: type, // or photo.type
+    name: 'receipt'
+  });
+  console.log('Calling fetch with body: ' + JSON.stringify(data));
+  fetch(`http://192.168.0.100:5000/` + func, {
+    method: 'POST',
+    headers: {
+      "accepts": "application/json",
+      "Access-Control-Allow-Origin": '*',
+      // 'Content-Type': 'multipart/form-data',
+    },
+    body: data,
+  }).then((response) => response.json())
+    .then((responseJson) => {
+      console.log('Fetch successful')
+      console.log(responseJson);
+
+    }).catch((error) => {
+      console.log(error);
+    });
+}
 
 // class Media extends Component {
 function Media() {
@@ -112,6 +147,9 @@ function Media() {
       // const { status } = await Camera.requestPermissionsAsync();
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
       setHasPermission(status === 'granted');
+      fetch('http://192.168.0.100:5000/')
+        .then(response => response.json)
+        .then(response => console.log(response));
     })();
   }, []);
   if (hasPermission === null) {
@@ -126,8 +164,8 @@ function Media() {
     // </View>
     <View style={{ flex: 1 }}>
       <Camera style={{ flex: 1 }} type={type} ref={ref => {
-        setCameraRef(ref) ;
-  }}>
+        setCameraRef(ref);
+      }}>
         <View
           style={{
             flex: 1,
@@ -148,29 +186,38 @@ function Media() {
             }}>
             <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{alignSelf: 'center'}} onPress={async() => {
-            if(cameraRef){
+          <TouchableOpacity style={{ alignSelf: 'center' }} onPress={async () => {
+            if (cameraRef) {
               let photo = await cameraRef.takePictureAsync();
-              console.log('photo', photo);
+              const manipResult = await ImageManipulator.manipulateAsync(
+                photo.localUri || photo.uri,
+                [{ rotate: 0 }],
+                { compress: 1, format: ImageManipulator.SaveFormat.JPEG }
+              );
+              uploadImageFetch(manipResult, 'categorize');
+              // console.log('photo', photo);
+              // uploadImageFetch(photo, 'categorize');
             }
           }}>
-            <View style={{ 
-               borderWidth: 2,
-               borderRadius:"50%",
-               borderColor: 'white',
-               height: 50,
-               width:50,
-               display: 'flex',
-               justifyContent: 'center',
-               alignItems: 'center'}}
+            <View style={{
+              borderWidth: 2,
+              borderRadius: "50%",
+              borderColor: 'white',
+              height: 50,
+              width: 50,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
             >
               <View style={{
-                 borderWidth: 2,
-                 borderRadius:"50%",
-                 borderColor: 'white',
-                 height: 40,
-                 width:40,
-                 backgroundColor: 'white'}} >
+                borderWidth: 2,
+                borderRadius: "50%",
+                borderColor: 'white',
+                height: 40,
+                width: 40,
+                backgroundColor: 'white'
+              }} >
               </View>
             </View>
           </TouchableOpacity>
