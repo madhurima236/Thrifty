@@ -15,31 +15,31 @@ def hello_world():
     return 'Hello, World!', 200
 
 
-@app.route('/upload_receipt', methods=['POST'])
+@app.route('/upload', methods=['POST'])
 def upload_receipt():
     img_file = request.files['receipt']
     img_file.save('Backend/WalmartReceipts/receipt')
-    receipt_id = receipts.add_receipt('Backend/WalmartReceipts/receipt')
-    return receipt_id
-
-
-@app.route('/categorize_prices', methods=['POST'])
-def categorize_prices() -> Any:
     try:
-        return receipts.categories_to_prices
+        receipt_id = receipts.add_receipt('Backend/WalmartReceipts/receipt')
+        return {'receipt_id': receipt_id}
     except Exception as e:
         return {'error': str(e), 'request': request}, 500
 
 
-@app.route('/pie_chart', methods=['POST'])
-def pie_chart(categories_to_prices):
-    stats = Statistics(categories_to_prices)
+@app.route('/categorize', methods=['POST'])
+def categorize_prices() -> Any:
+    return receipts.categories_to_prices
+
+
+@app.route('/pie', methods=['POST'])
+def pie_chart():
+    stats = Statistics(receipts.categories_to_prices)
     stats.pie_chart()
 
 
-@app.route('/bar_graph', methods=['POST'])
-def bar_graph(categories_to_prices):
-    stats = Statistics(categories_to_prices)
+@app.route('/bar', methods=['POST'])
+def bar_graph():
+    stats = Statistics(receipts.categories_to_prices)
     stats.bar_graphs()
 
 

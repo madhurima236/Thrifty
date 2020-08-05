@@ -100,6 +100,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 import * as ImageManipulator from "expo-image-manipulator";
+import firebase from "../Database/firebase";
 
 function uploadImageFetch(source, func) {
 
@@ -117,7 +118,7 @@ function uploadImageFetch(source, func) {
     name: 'receipt'
   });
   console.log('Calling fetch with body: ' + JSON.stringify(data));
-  fetch(`http://192.168.0.100:5000/` + func, {
+  fetch(`http://192.168.0.104:5000/` + func, {
     method: 'POST',
     headers: {
       "accepts": "application/json",
@@ -135,6 +136,17 @@ function uploadImageFetch(source, func) {
     });
 }
 
+let uploadImageToFirebase = async(uri) => {
+  const response = await fetch(uri);
+  const blob = await response.blob();
+  console.log(firebase.storage());
+  var ref = firebase.storage().ref().child("my-image");
+  return ref.put(blob)
+          .then(response => response.json())
+          .then(response => console.log(response))
+          .catch(error => console.log(error));
+}
+
 // class Media extends Component {
 function Media() {
   // render() {
@@ -147,7 +159,7 @@ function Media() {
       // const { status } = await Camera.requestPermissionsAsync();
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
       setHasPermission(status === 'granted');
-      fetch('http://192.168.0.100:5000/')
+      fetch('http://192.168.0.104:5000/')
         .then(response => response.json)
         .then(response => console.log(response));
     })();
@@ -195,6 +207,7 @@ function Media() {
                 { compress: 1, format: ImageManipulator.SaveFormat.JPEG }
               );
               uploadImageFetch(manipResult, 'categorize');
+              uploadImageToFirebase(manipResult.uri);
               // console.log('photo', photo);
               // uploadImageFetch(photo, 'categorize');
             }
