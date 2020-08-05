@@ -39,15 +39,24 @@ class Statistics:
 
 
 class MultipleReceipts:
-    receipts: List[Receipt]
+    receipts_id: List[str]
     categories_to_prices: Dict[str, float]
+    id_count: int
 
     def __init__(self):
         self.receipts = []
         self.categories_to_prices = {}
+        self.id_count = 0
+
+    def get_id(self) -> str:
+        return str(self.id_count + 1)
 
     def add_receipt(self, filepath):
         receipt = Receipt(filepath)
+
+        receipt_id = self.get_id()
+        self.receipts.append(receipt_id)
+
         receipt.get_data()
         receipt.create_categories()
         receipt.calculate_cost()
@@ -63,8 +72,6 @@ class MultipleReceipts:
                 for item in receipt.categories_to_items[category]:
                     total += receipt.items_to_price[item]
                 self.categories_to_prices[category] = total
-
-        self.receipts.append(receipt)
 
 
 if __name__ == '__main__':

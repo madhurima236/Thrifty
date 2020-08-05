@@ -1,3 +1,5 @@
+from typing import Any
+
 from flask import Flask, request, send_file, json
 from flask_cors import CORS
 from Backend.statistics import *
@@ -13,16 +15,35 @@ def hello_world():
     return 'Hello, World!', 200
 
 
-@app.route('/categorize', methods=['POST'])
-def categorize():
-    r = request
-    file = r.files['receipt']
+@app.route('/categorize_prices', methods=['POST'])
+def categorize_prices() -> Any:
+    file = request.files['receipt']
     file.save('Backend/WalmartReceipts/receipt')
     try:
         receipts.add_receipt('Backend/WalmartReceipts/receipt')
         return receipts.categories_to_prices
     except Exception as e:
         return {'error': str(e), 'request': request}, 500
+
+
+@app.route('/pie_chart', methods=['POST'])
+def pie_chart():
+    categories_to_prices = categorize()
+    if type(categories_to_prices) is str:
+        print(categories_to_prices)
+    else:
+        stats = Statistics(categories_to_prices)
+        stats.pie_chart()
+
+
+@app.route('/bar_graph', methods=['POST'])
+def bar_graph():
+    categories_to_prices = categorize()
+    if type(categories_to_prices) is str:
+        print(categories_to_prices)
+    else:
+        stats = Statistics(categories_to_prices)
+        stats.bar_graphs()
 
 
 # 1. Category to prices - Done!
