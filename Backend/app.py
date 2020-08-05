@@ -15,12 +15,17 @@ def hello_world():
     return 'Hello, World!', 200
 
 
+@app.route('/upload_receipt', methods=['POST'])
+def upload_receipt():
+    img_file = request.files['receipt']
+    img_file.save('Backend/WalmartReceipts/receipt')
+    receipts.add_receipt('Backend/WalmartReceipts/receipt')
+
+
 @app.route('/categorize_prices', methods=['POST'])
 def categorize_prices() -> Any:
-    file = request.files['receipt']
-    file.save('Backend/WalmartReceipts/receipt')
+    upload_receipt()
     try:
-        receipts.add_receipt('Backend/WalmartReceipts/receipt')
         return receipts.categories_to_prices
     except Exception as e:
         return {'error': str(e), 'request': request}, 500
@@ -28,7 +33,7 @@ def categorize_prices() -> Any:
 
 @app.route('/pie_chart', methods=['POST'])
 def pie_chart():
-    categories_to_prices = categorize()
+    categories_to_prices = categorize_prices()
     if type(categories_to_prices) is str:
         print(categories_to_prices)
     else:
@@ -38,7 +43,7 @@ def pie_chart():
 
 @app.route('/bar_graph', methods=['POST'])
 def bar_graph():
-    categories_to_prices = categorize()
+    categories_to_prices = categorize_prices()
     if type(categories_to_prices) is str:
         print(categories_to_prices)
     else:

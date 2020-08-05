@@ -44,18 +44,17 @@ class MultipleReceipts:
     id_count: int
 
     def __init__(self):
-        self.receipts = []
+        self.receipts_id = []
         self.categories_to_prices = {}
         self.id_count = 0
 
-    def get_id(self) -> str:
-        return str(self.id_count + 1)
+    def create_id(self) -> None:
+        new_id = str(self.id_count + 1)
+        self.receipts_id.append(new_id)
 
     def add_receipt(self, filepath):
         receipt = Receipt(filepath)
-
-        receipt_id = self.get_id()
-        self.receipts.append(receipt_id)
+        self.create_id()
 
         receipt.get_data()
         receipt.create_categories()
