@@ -48,14 +48,10 @@ class MultipleReceipts:
         self.categories_to_prices = {}
         self.id_count = 0
 
-    def create_id(self) -> None:
-        new_id = str(self.id_count + 1)
-        self.receipts_id.append(new_id)
+    def create_id(self) -> str:
+        return str(self.id_count + 1)
 
-    def add_receipt(self, filepath):
-        receipt = Receipt(filepath)
-        self.create_id()
-
+    def _create_categories(self, receipt) -> None:
         receipt.get_data()
         receipt.create_categories()
         receipt.calculate_cost()
@@ -71,6 +67,16 @@ class MultipleReceipts:
                 for item in receipt.categories_to_items[category]:
                     total += receipt.items_to_price[item]
                 self.categories_to_prices[category] = total
+
+    def add_receipt(self, filepath) -> str:
+        receipt = Receipt(filepath)
+
+        new_id = self.create_id()
+        self.receipts_id.append(new_id)
+
+        self._create_categories(receipt)
+
+        return new_id
 
 
 if __name__ == '__main__':
