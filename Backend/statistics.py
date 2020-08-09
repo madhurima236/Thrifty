@@ -40,6 +40,7 @@ class Statistics:
 
 class MultipleReceipts:
     receipts_id: List[str]
+    id_to_receipt: Dict[str: Receipt]
     categories_to_prices: Dict[str, float]
     id_count: int
 
@@ -48,8 +49,10 @@ class MultipleReceipts:
         self.categories_to_prices = {}
         self.id_count = 0
 
-    def create_id(self) -> str:
-        return str(self.id_count + 1)
+    def create_id(self, receipt) -> str:
+        id_receipt = str(self.id_count + 1)
+        self.id_to_receipt[id_receipt] = receipt
+        return id_receipt
 
     def _create_categories(self, receipt) -> None:
         receipt.get_data()
