@@ -43,9 +43,23 @@ def pie_chart():
     return send_file('Backend/Charts/piechart.png')
 
 
+@app.route('/pie', methods=['POST'])
+def single_pie_chart(receipt_id):
+    stats = Statistics(receipts.single_categories_to_prices(receipt_id))
+    stats.pie_chart()
+    return send_file('Backend/Charts/piechart.png')
+
+
 @app.route('/bar', methods=['POST'])
 def bar_graph():
     stats = Statistics(receipts.categories_to_prices)
+    stats.bar_graphs()
+    return send_file('Backend/Charts/barchart.png')
+
+
+@app.route('/bar', methods=['POST'])
+def single_bar_graph(receipt_id):
+    stats = Statistics(receipts.single_categories_to_prices(receipt_id))
     stats.bar_graphs()
     return send_file('Backend/Charts/barchart.png')
 
