@@ -23,8 +23,8 @@ class Statistics:
     def pie_chart(self):
         plt.pie(self.prices, labels=self.categories, autopct='%0.1f%%',
                 labeldistance=1.3, radius=1.4)
+        plt.savefig('Backend/Charts/piechart,png')
 
-        plt.show()
 
     def bar_graphs(self):
         ypos = np.arange(len(self.categories))
@@ -35,7 +35,7 @@ class Statistics:
         width = 0.6
         plt.bar(ypos, self.prices, width, capsize=3, color="magenta")
 
-        plt.show()
+        plt.savefig(filename='Backend/Charts/barchart.png')
 
 
 class MultipleReceipts:
@@ -80,6 +80,9 @@ class MultipleReceipts:
         self._create_categories(receipt)
 
         return new_id
+
+    def single_categories_to_prices(self, receipt_id) -> Dict[str, float]:
+        return self.id_to_receipt[receipt_id].categories_to_prices
 
 
 if __name__ == '__main__':

@@ -31,22 +31,24 @@ def categorize_prices() -> Any:
     return receipts.categories_to_prices
 
 
+@app.route('/single_categorize', methods=['POST'])
+def single_categorize(receipt_id):
+    return receipts.single_categories_to_prices(receipt_id)
+
+
 @app.route('/pie', methods=['POST'])
 def pie_chart():
     stats = Statistics(receipts.categories_to_prices)
     stats.pie_chart()
+    return send_file('Backend/Charts/piechart.png')
 
 
 @app.route('/bar', methods=['POST'])
 def bar_graph():
     stats = Statistics(receipts.categories_to_prices)
     stats.bar_graphs()
+    return send_file('Backend/Charts/barchart.png')
 
-
-# 1. Category to prices - Done!
-# 1.1 Categories to items
-# 2. Pie Chart
-# 3. Bar Graph
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
