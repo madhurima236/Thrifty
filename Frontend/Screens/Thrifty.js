@@ -5,6 +5,7 @@ import { StyleSheet, View, Text, Button } from "react-native";
 import firebase from "../Database/firebase";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Fontisto } from "@expo/vector-icons";
+import { userData } from '../localData/data';
 
 import Media from "./Media";
 import Profile from "./Profile";
@@ -27,6 +28,7 @@ function MyTabs() {
 export default class Thrifty extends Component {
   constructor() {
     super();
+    
     this.state = {
       uid: "",
     };

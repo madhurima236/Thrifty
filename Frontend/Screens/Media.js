@@ -101,8 +101,9 @@ import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 import * as ImageManipulator from "expo-image-manipulator";
 import firebase from "../Database/firebase";
+import { userData } from '../localData/data';
 
-function uploadImageFetch(source, func) {
+let uploadImageFetch = async(source) => {
 
   const data = new FormData();
   let localUri = source.uri
@@ -118,7 +119,7 @@ function uploadImageFetch(source, func) {
     name: 'receipt'
   });
   console.log('Calling fetch with body: ' + JSON.stringify(data));
-  fetch(`http://192.168.0.104:5000/` + func, {
+  return await fetch(`http://192.168.0.106:5000/` + 'upload', {
     method: 'POST',
     headers: {
       "accepts": "application/json",
@@ -130,21 +131,66 @@ function uploadImageFetch(source, func) {
     .then((responseJson) => {
       console.log('Fetch successful')
       console.log(responseJson);
-
+      let id = responseJson.receipt_id
+      return id
     }).catch((error) => {
       console.log(error);
     });
 }
 
-let uploadImageToFirebase = async(uri) => {
+let getReceiptCategories = async(id) => {
+
+  return await fetch(`http://192.168.0.106:5000/` + 'single_categorize', {
+    method: 'POST',
+    headers: {
+      "accepts": "application/json",
+      "Access-Control-Allow-Origin": '*',
+      // 'Content-Type': 'multipart/form-data',
+    },
+    body: {
+      receipt_id: id
+    },
+  }).then((response) => response.json())
+    .then((responseJson) => {
+      console.log('Fetch successful')
+      console.log(responseJson);
+      return responseJson;
+    }).catch((error) => {
+      console.log(error);
+    });
+}
+
+let getReceiptChart = async(id, type) => {
+
+  return await fetch(`http://192.168.0.106:5000/` + 'single_' + type, {
+    method: 'POST',
+    headers: {
+      "accepts": "application/json",
+      "Access-Control-Allow-Origin": '*',
+      // 'Content-Type': 'multipart/form-data',
+    },
+    body: {
+      receipt_id: id
+    },
+  }).then((response) => response.json())
+    .then((responseJson) => {
+      console.log('Fetch successful')
+      console.log(responseJson);
+      return responseJson;
+    }).catch((error) => {
+      console.log(error);
+    });
+}
+
+let uploadImageToFirebase = async (uri, id, type) => {
   const response = await fetch(uri);
   const blob = await response.blob();
   console.log(firebase.storage());
-  var ref = firebase.storage().ref().child("my-image");
-  return ref.put(blob)
-          .then(response => response.json())
-          .then(response => console.log(response))
-          .catch(error => console.log(error));
+  var ref = firebase.storage().ref().child(`${type}_${id}`);
+  let snapshot = ref.put(blob);
+  let url = await ref.getDownloadURL();
+  console.log(url);
+  return url;
 }
 
 // class Media extends Component {
@@ -159,7 +205,7 @@ function Media() {
       // const { status } = await Camera.requestPermissionsAsync();
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
       setHasPermission(status === 'granted');
-      fetch('http://192.168.0.104:5000/')
+      fetch('http://192.168.0.106:5000/')
         .then(response => response.json)
         .then(response => console.log(response));
     })();
@@ -206,8 +252,14 @@ function Media() {
                 [{ rotate: 0 }],
                 { compress: 1, format: ImageManipulator.SaveFormat.JPEG }
               );
-              uploadImageFetch(manipResult, 'categorize');
-              uploadImageToFirebase(manipResult.uri);
+              let receiptId = await uploadImageFetch(manipResult);
+              let receiptUrl = await uploadImageToFirebase(manipResult.uri, receiptId, 'receipt');
+              let categoriesToPrices = await getReceiptCategories(receiptId);
+              getReceiptChart(receiptId, 'pie');
+
+              userData.receipts[receiptId] = receiptUrl;
+              console.log(userData);
+
               // console.log('photo', photo);
               // uploadImageFetch(photo, 'categorize');
             }

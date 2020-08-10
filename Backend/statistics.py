@@ -40,17 +40,19 @@ class Statistics:
 
 class MultipleReceipts:
     receipts_id: List[str]
-    id_to_receipt: Dict[str: Receipt]
+    id_to_receipt: Dict[str, Receipt]
     categories_to_prices: Dict[str, float]
     id_count: int
 
     def __init__(self):
         self.receipts_id = []
+        self.id_to_receipt = {}
         self.categories_to_prices = {}
         self.id_count = 0
 
     def create_id(self, receipt) -> str:
         id_receipt = str(self.id_count + 1)
+        self.id_count += 1
         self.id_to_receipt[id_receipt] = receipt
         return id_receipt
 
@@ -74,7 +76,7 @@ class MultipleReceipts:
     def add_receipt(self, filepath) -> str:
         receipt = Receipt(filepath)
 
-        new_id = self.create_id()
+        new_id = self.create_id(receipt)
         self.receipts_id.append(new_id)
 
         self._create_categories(receipt)

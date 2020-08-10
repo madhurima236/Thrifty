@@ -32,7 +32,9 @@ def categorize_prices() -> Any:
 
 
 @app.route('/single_categorize', methods=['POST'])
-def single_categorize(receipt_id):
+def single_categorize():
+    req = request
+    receipt_id = req.data['request_id']
     return receipts.single_categories_to_prices(receipt_id)
 
 
@@ -40,11 +42,13 @@ def single_categorize(receipt_id):
 def pie_chart():
     stats = Statistics(receipts.categories_to_prices)
     stats.pie_chart()
-    return send_file('Backend/Charts/piechart.png')
+    return send_file('Backend/Charts/piechart.png',
+                     attachment_filename='pie_chart.png')
 
 
-@app.route('/pie', methods=['POST'])
-def single_pie_chart(receipt_id):
+@app.route('/single_pie', methods=['POST'])
+def single_pie_chart():
+    receipt_id = request.data['request_id']
     stats = Statistics(receipts.single_categories_to_prices(receipt_id))
     stats.pie_chart()
     return send_file('Backend/Charts/piechart.png')
@@ -54,11 +58,13 @@ def single_pie_chart(receipt_id):
 def bar_graph():
     stats = Statistics(receipts.categories_to_prices)
     stats.bar_graphs()
-    return send_file('Backend/Charts/barchart.png')
+    return send_file('Backend/Charts/barchart.png',
+                     attachment_filename='bar_chart.png')
 
 
-@app.route('/bar', methods=['POST'])
-def single_bar_graph(receipt_id):
+@app.route('/single_bar', methods=['POST'])
+def single_bar_graph():
+    receipt_id = request.data['request_id']
     stats = Statistics(receipts.single_categories_to_prices(receipt_id))
     stats.bar_graphs()
     return send_file('Backend/Charts/barchart.png')

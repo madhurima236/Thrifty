@@ -52,6 +52,7 @@ export default class Signup extends Component {
             email: "",
             password: "",
           });
+
           this.props.navigation.navigate("Login");
         })
         .catch((error) => this.setState({ errorMessage: error.message }));
