@@ -17,9 +17,18 @@ import {
   Body,
   Button,
 } from "native-base";
+import firebase from "../Database/firebase";
+
 // import Settings from "./Settings";
 
 class Profile extends Component {
+  constructor(props) {
+    super(props)
+    firebase.database().ref(`${firebase.auth().currentUser.uid}`).once('value')
+      .then((snapshot) => {
+        console.log(snapshot.val());
+      });
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -35,6 +44,11 @@ class Profile extends Component {
           style={{ width: 80, height: 80 }}
           onPress={() => this.signOut()} */}
         {/* /> */}
+        <Image source={{
+          uri: 'https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/my-image?alt=media&token=bfed5150-12e0-4f01-8593-767ee91ac704'
+        }}
+        style={styles.image}
+         />
       </View>
     );
   }
@@ -47,4 +61,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  image: {
+    width: "100%",
+    height: "100%"
+    }
 });

@@ -23,8 +23,8 @@ class Statistics:
     def pie_chart(self):
         plt.pie(self.prices, labels=self.categories, autopct='%0.1f%%',
                 labeldistance=1.3, radius=1.4)
+        plt.savefig('Backend/Charts/piechart,png')
 
-        plt.show()
 
     def bar_graphs(self):
         ypos = np.arange(len(self.categories))
@@ -35,19 +35,28 @@ class Statistics:
         width = 0.6
         plt.bar(ypos, self.prices, width, capsize=3, color="magenta")
 
-        plt.show()
+        plt.savefig(filename='Backend/Charts/barchart.png')
 
 
 class MultipleReceipts:
-    receipts: List[Receipt]
+    receipts_id: List[str]
+    id_to_receipt: Dict[str, Receipt]
     categories_to_prices: Dict[str, float]
+    id_count: int
 
     def __init__(self):
-        self.receipts = []
+        self.receipts_id = []
+        self.id_to_receipt = {}
         self.categories_to_prices = {}
+        self.id_count = 0
 
-    def add_receipt(self, filepath):
-        receipt = Receipt(filepath)
+    def create_id(self, receipt) -> str:
+        id_receipt = str(self.id_count + 1)
+        self.id_count += 1
+        self.id_to_receipt[id_receipt] = receipt
+        return id_receipt
+
+    def _create_categories(self, receipt) -> None:
         receipt.get_data()
         receipt.create_categories()
         receipt.calculate_cost()
@@ -64,7 +73,18 @@ class MultipleReceipts:
                     total += receipt.items_to_price[item]
                 self.categories_to_prices[category] = total
 
-        self.receipts.append(receipt)
+    def add_receipt(self, filepath) -> str:
+        receipt = Receipt(filepath)
+
+        new_id = self.create_id(receipt)
+        self.receipts_id.append(new_id)
+
+        self._create_categories(receipt)
+
+        return new_id
+
+    def single_categories_to_prices(self, receipt_id) -> Dict[str, float]:
+        return self.id_to_receipt[receipt_id].categories_to_prices
 
 
 if __name__ == '__main__':
