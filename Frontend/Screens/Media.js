@@ -186,8 +186,7 @@ let uploadImageToFirebase = async (uri, id, type) => {
   const response = await fetch(uri);
   const blob = await response.blob();
   console.log(firebase.storage());
-  var ref = firebase.storage().ref().child(`${type}_${id}`);
-  let snapshot = ref.put(blob);
+  var snapshot = await firebase.storage().ref().child(`${type}_${id}`).put(blob);
   let url = await ref.getDownloadURL();
   console.log(url);
   return url;
