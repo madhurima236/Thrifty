@@ -1,3 +1,4 @@
+import ast
 from typing import Any
 
 from flask import Flask, request, send_file, json
@@ -34,7 +35,8 @@ def categorize_prices() -> Any:
 @app.route('/single_categorize', methods=['POST'])
 def single_categorize():
     req = request
-    receipt_id = req.data['request_id']
+    req_body = ast.literal_eval(req.data.decode('UTF-8'))
+    receipt_id = req_body['receipt_id']
     return receipts.single_categories_to_prices(receipt_id)
 
 
@@ -48,7 +50,9 @@ def pie_chart():
 
 @app.route('/single_pie', methods=['POST'])
 def single_pie_chart():
-    receipt_id = request.data['request_id']
+    req = request
+    req_body = ast.literal_eval(req.data.decode('UTF-8'))
+    receipt_id = req_body['receipt_id']
     stats = Statistics(receipts.single_categories_to_prices(receipt_id))
     stats.pie_chart()
     return send_file('Backend/Charts/piechart.png')
@@ -64,7 +68,9 @@ def bar_graph():
 
 @app.route('/single_bar', methods=['POST'])
 def single_bar_graph():
-    receipt_id = request.data['request_id']
+    req = request
+    req_body = ast.literal_eval(req.data.decode('UTF-8'))
+    receipt_id = req_body['receipt_id']
     stats = Statistics(receipts.single_categories_to_prices(receipt_id))
     stats.bar_graphs()
     return send_file('Backend/Charts/barchart.png')

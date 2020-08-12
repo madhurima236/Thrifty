@@ -84,7 +84,7 @@ class MultipleReceipts:
         return new_id
 
     def single_categories_to_prices(self, receipt_id) -> Dict[str, float]:
-        return self.id_to_receipt[receipt_id].categories_to_prices
+        return self.id_to_receipt[receipt_id].categories_to_price
 
 
 if __name__ == '__main__':

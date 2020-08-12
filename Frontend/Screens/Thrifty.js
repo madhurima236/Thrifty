@@ -21,7 +21,7 @@ function MyTabs() {
     <Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, size }) => {
         let iconName;
-        let color = focused ? 'black' : 'gray';
+        let color = focused ? '#00d800' : 'gray';
 
         switch (route.name) {
           case 'Home':

@@ -18,7 +18,7 @@ import {
   Button,
 } from "native-base";
 import firebase from "../Database/firebase";
-import { PhotoGrid } from 'react-native-photo-grid';
+import PhotoGrid from 'react-native-photo-grid';
 // import Settings from "./Settings";
 
 class Profile extends Component {

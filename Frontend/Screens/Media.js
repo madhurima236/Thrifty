@@ -147,9 +147,9 @@ let getReceiptCategories = async(id) => {
       "Access-Control-Allow-Origin": '*',
       // 'Content-Type': 'multipart/form-data',
     },
-    body: {
+    body: JSON.stringify({
       receipt_id: id
-    },
+    }),
   }).then((response) => response.json())
     .then((responseJson) => {
       console.log('Fetch successful')
@@ -169,9 +169,9 @@ let getReceiptChart = async(id, type) => {
       "Access-Control-Allow-Origin": '*',
       // 'Content-Type': 'multipart/form-data',
     },
-    body: {
+    body: JSON.stringify({
       receipt_id: id
-    },
+    }),
   }).then((response) => response.json())
     .then((responseJson) => {
       console.log('Fetch successful')
