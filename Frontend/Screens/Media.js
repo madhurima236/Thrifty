@@ -119,7 +119,7 @@ let uploadImageFetch = async(source) => {
     name: 'receipt'
   });
   console.log('Calling fetch with body: ' + JSON.stringify(data));
-  return await fetch(`http://192.168.0.106:5000/` + 'upload', {
+  return await fetch(`http://192.168.0.103:5000/` + 'upload', {
     method: 'POST',
     headers: {
       "accepts": "application/json",
@@ -140,7 +140,7 @@ let uploadImageFetch = async(source) => {
 
 let getReceiptCategories = async(id) => {
 
-  return await fetch(`http://192.168.0.106:5000/` + 'single_categorize', {
+  return await fetch(`http://192.168.0.103:5000/` + 'single_categorize', {
     method: 'POST',
     headers: {
       "accepts": "application/json",
@@ -162,7 +162,7 @@ let getReceiptCategories = async(id) => {
 
 let getReceiptChart = async(id, type) => {
 
-  return await fetch(`http://192.168.0.106:5000/` + 'single_' + type, {
+  return await fetch(`http://192.168.0.103:5000/` + 'single_' + type, {
     method: 'POST',
     headers: {
       "accepts": "application/json",
@@ -187,7 +187,7 @@ let uploadImageToFirebase = async (uri, id, type) => {
   const blob = await response.blob();
   console.log(firebase.storage());
   var snapshot = await firebase.storage().ref().child(`${type}_${id}`).put(blob);
-  let url = await ref.getDownloadURL();
+  let url = await firebase.storage().ref().child(`${type}_${id}`).getDownloadURL();
   console.log(url);
   return url;
 }
@@ -204,9 +204,6 @@ function Media() {
       // const { status } = await Camera.requestPermissionsAsync();
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
       setHasPermission(status === 'granted');
-      fetch('http://192.168.0.106:5000/')
-        .then(response => response.json)
-        .then(response => console.log(response));
     })();
   }, []);
   if (hasPermission === null) {
