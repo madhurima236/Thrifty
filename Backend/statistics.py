@@ -2,6 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from Backend.classifytext import *
+import os
+
+my_path = os.path.dirname(__file__)
 
 
 class Statistics:
@@ -23,7 +26,8 @@ class Statistics:
     def pie_chart(self):
         plt.pie(self.prices, labels=self.categories, autopct='%0.1f%%',
                 labeldistance=1.3, radius=1.4)
-        plt.savefig('Backend/Charts/piechart,png')
+        plt.savefig(my_path + '/Charts/piechart.png')
+        plt.clf()
 
 
     def bar_graphs(self):
@@ -35,7 +39,8 @@ class Statistics:
         width = 0.6
         plt.bar(ypos, self.prices, width, capsize=3, color="magenta")
 
-        plt.savefig(filename='Backend/Charts/barchart.png')
+        plt.savefig(my_path + '/Charts/barchart.png')
+        plt.clf()
 
 
 class MultipleReceipts:

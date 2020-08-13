@@ -103,7 +103,13 @@ import * as ImageManipulator from "expo-image-manipulator";
 import firebase from "../Database/firebase";
 import { userData } from '../localData/data';
 
-let uploadImageFetch = async(source) => {
+let roundDictVals = (dict) => {
+  for (let k in dict){
+    dict[k] = Math.round(dict[k] * 100) / 100;
+  }
+  return dict;   
+}
+let uploadImageFetch = async (source) => {
 
   const data = new FormData();
   let localUri = source.uri
@@ -129,16 +135,16 @@ let uploadImageFetch = async(source) => {
     body: data,
   }).then((response) => response.json())
     .then((responseJson) => {
-      console.log('Fetch successful')
+      console.log('Upload: Fetch successful')
       console.log(responseJson);
       let id = responseJson.receipt_id
       return id
     }).catch((error) => {
-      console.log(error);
+      console.log('Upload:' + JSON.stringify(error, Object.getOwnPropertyNames(error)));
     });
-}
+  }
 
-let getReceiptCategories = async(id) => {
+let getReceiptCategories = async (id) => {
 
   return await fetch(`http://192.168.0.103:5000/` + 'single_categorize', {
     method: 'POST',
@@ -152,15 +158,15 @@ let getReceiptCategories = async(id) => {
     }),
   }).then((response) => response.json())
     .then((responseJson) => {
-      console.log('Fetch successful')
+      console.log('Categories: Fetch successful')
       console.log(responseJson);
-      return responseJson;
+      return roundDictVals(responseJson);
     }).catch((error) => {
-      console.log(error);
+      console.log('Categories: ' + JSON.stringify(error, Object.getOwnPropertyNames(error)));
     });
 }
 
-let getReceiptChart = async(id, type) => {
+let getReceiptChart = async (id, type) => {
 
   return await fetch(`http://192.168.0.103:5000/` + 'single_' + type, {
     method: 'POST',
@@ -172,25 +178,77 @@ let getReceiptChart = async(id, type) => {
     body: JSON.stringify({
       receipt_id: id
     }),
+  }).then((response) => response.blob())
+    .then(async (responseBlob) => {
+      console.log('Chart: Fetch successful')
+      return await uploadBlobToFirebase(responseBlob, id, type);
+    }).catch((error) => {
+      console.log('Chart: ' + JSON.stringify(error, Object.getOwnPropertyNames(error)));
+    });
+}
+
+let getOverallCategories = async () => {
+  return await fetch(`http://192.168.0.103:5000/` + 'categorize', {
+    method: 'POST',
+    headers: {
+      "accepts": "application/json",
+      "Access-Control-Allow-Origin": '*',
+      // 'Content-Type': 'multipart/form-data',
+    },
+    body: null
   }).then((response) => response.json())
     .then((responseJson) => {
-      console.log('Fetch successful')
+      console.log('Categories: Fetch successful')
       console.log(responseJson);
-      return responseJson;
+      return roundDictVals(responseJson);
     }).catch((error) => {
-      console.log(error);
+      console.log('Categories: ' + JSON.stringify(error, Object.getOwnPropertyNames(error)));
+    });
+}
+
+let getOverallChart = async (id, type) => {
+
+  return await fetch(`http://192.168.0.103:5000/` + type, {
+    method: 'POST',
+    headers: {
+      "accepts": "application/json",
+      "Access-Control-Allow-Origin": '*',
+      // 'Content-Type': 'multipart/form-data',
+    },
+    body: null,
+  }).then((response) => response.blob())
+    .then(async (responseBlob) => {
+      console.log('Chart: Fetch successful')
+      return await uploadOverallBlobToFirebase(responseBlob, type);
+    }).catch((error) => {
+      console.log('Chart: ' + JSON.stringify(error, Object.getOwnPropertyNames(error)));
     });
 }
 
 let uploadImageToFirebase = async (uri, id, type) => {
   const response = await fetch(uri);
   const blob = await response.blob();
-  console.log(firebase.storage());
-  var snapshot = await firebase.storage().ref().child(`${type}_${id}`).put(blob);
+  await firebase.storage().ref().child(`${type}_${id}`).put(blob);
   let url = await firebase.storage().ref().child(`${type}_${id}`).getDownloadURL();
   console.log(url);
   return url;
 }
+let uploadBlobToFirebase = async (blob, id, type) => {
+  console.log('Blob type: ' + typeof (blob))
+  await firebase.storage().ref().child(`${type}_${id}`).put(blob);
+  let url = await firebase.storage().ref().child(`${type}_${id}`).getDownloadURL();
+  console.log(url);
+  return url;
+}
+
+let uploadOverallBlobToFirebase = async (blob, type) => {
+  console.log('Blob type: ' + typeof (blob))
+  await firebase.storage().ref().child(`${type}`).put(blob);
+  let url = await firebase.storage().ref().child(`${type}`).getDownloadURL();
+  console.log(url);
+  return url;
+}
+
 
 // class Media extends Component {
 function Media() {
@@ -250,10 +308,24 @@ function Media() {
               );
               let receiptId = await uploadImageFetch(manipResult);
               let receiptUrl = await uploadImageToFirebase(manipResult.uri, receiptId, 'receipt');
-              let categoriesToPrices = await getReceiptCategories(receiptId);
-              getReceiptChart(receiptId, 'pie');
+              let categoriesToPrice = await getReceiptCategories(receiptId);
+              let pieUrl = await getReceiptChart(receiptId, 'pie');
+              let barUrl = await getReceiptChart(receiptId, 'bar');
+              let overallCategories = await getOverallCategories();
+              let overallPieUrl = await getOverallChart('pie');
+              let overallBarUrl = await getOverallChart('bar');
 
-              userData.receipts[receiptId] = receiptUrl;
+              receiptData = {
+                image: receiptUrl,
+                categoriesToPrice: categoriesToPrice,
+                pie: pieUrl,
+                bar: barUrl
+              }
+
+              userData.receipts[receiptId] = receiptData;
+              userData.categoriesToPrice = overallCategories;
+              userData.pieUrl = overallPieUrl;
+              userData.barUrl = overallBarUrl;
               console.log(userData);
 
               // console.log('photo', photo);
