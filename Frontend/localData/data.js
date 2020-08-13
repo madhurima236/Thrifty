@@ -2,7 +2,9 @@ export var userData = {
     receipts: {
 
     },
-    categoriesToItems: {
+    categoriesToPrice: {
 
     },
+    barUrl: null,
+    pieUrl: null
 }
