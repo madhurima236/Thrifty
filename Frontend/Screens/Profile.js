@@ -63,11 +63,7 @@ class Profile extends Component {
         renderHeader = { this.renderHeader }
         renderItem = { this.renderItem }
       />
-        {/* <Image source={{
-          uri: 'https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/my-image?alt=media&token=bfed5150-12e0-4f01-8593-767ee91ac704'
-        }}
-        style={styles.image}
-      /> */}
+        {/* */}
       </View>
     );
   }
@@ -103,8 +99,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  image: {
-    width: "100%",
-    height: "100%"
-    }
+  
 });

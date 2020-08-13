@@ -1,11 +1,21 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
+import { userData } from '../localData/data';
 
 class Statistics extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text> Statistics </Text>
+        <Image source={{
+          uri: userData.pieUrl
+        }}
+          style={styles.image}
+        />
+        <Image source={{
+          uri: userData.barUrl
+        }}
+          style={styles.image}
+        />
       </View>
     );
   }
@@ -18,4 +28,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  image: {
+    width: "100%",
+    height: "100%"
+  }
 });
