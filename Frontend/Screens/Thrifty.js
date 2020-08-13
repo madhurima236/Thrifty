@@ -1,7 +1,7 @@
 // components/dashboard.js
 
 import React, { Component } from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
+import { StyleSheet, View, Text, Button, AsyncStorage } from "react-native";
 import firebase from "../Database/firebase";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Fontisto } from "@expo/vector-icons";
@@ -12,7 +12,7 @@ import Profile from "./Profile";
 import Statistics from "./Statistics";
 import Home from "./Home";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faHome, faUser, faChartPie, faCamera} from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUser, faChartPie, faCamera } from '@fortawesome/free-solid-svg-icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +26,7 @@ function MyTabs() {
         switch (route.name) {
           case 'Home':
             iconName = faHome
-              break;
+            break;
           case 'Profile':
             // iconName = focused ? 'fa fa-user' : 'fa fa-user-outline';
             iconName = faUser;
@@ -42,7 +42,7 @@ function MyTabs() {
 
         // You can return any component that you like here!
         // return <Icon name={iconName} size={size} color={color} />;
-        return <FontAwesomeIcon icon={iconName} size={size} color={color}/>
+        return <FontAwesomeIcon icon={iconName} size={size} color={color} />
       },
     })}>
       <Tab.Screen name="Home" component={Home} />
@@ -57,10 +57,33 @@ export default class Thrifty extends Component {
   constructor() {
     super();
 
+    this._retrieveData();
+
     this.state = {
       uid: "",
     };
   }
+  _retrieveData = async () => {
+    fetch(`http://192.168.0.103:5000/load`, {
+      method: 'GET',
+      headers: {
+        "accepts": "application/json",
+        "Access-Control-Allow-Origin": '*',
+        // 'Content-Type': 'multipart/form-data',
+      },
+      body: null
+    }).then(response => response.json())
+      .then(responseJson => {
+        if (responseJson !== null && responseJson != {}) {
+          // console.log(responseJson)
+          userData.receipts = responseJson.receipts
+          userData.categoriesToPrice = responseJson.categoriesToPrice
+          userData.barUrl = responseJson.barUrl
+          userData.pieUrl = responseJson.pieUrl
+        }
+      })
+      .catch(error => console.log(error));
+  };
   signOut = () => {
     firebase
       .auth()

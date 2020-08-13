@@ -1,22 +1,46 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { ScrollView, Text, StyleSheet, Image } from "react-native";
 import { userData } from '../localData/data';
 
 class Statistics extends Component {
+  state = {
+    error: false
+  };
+  _onImageLoadError = (event) => {
+    console.warn(event.nativeEvent.error);
+    this.setState({ error: true });
+  }
   render() {
+    let { error } = this.state;
+
+    if (error) {
+      return (
+        <Text>{'No Pie Chart Found'}</Text>
+      );
+    }
     return (
-      <View style={styles.container}>
+
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{
+        alignItems: "center",
+        justifyContent: "center"
+      }}>
         <Image source={{
           uri: userData.pieUrl
         }}
           style={styles.image}
+          accessible
+          accessibilityLabel={'No Pie Chart Found'}
+          onError={this._onImageLoadError}
         />
         <Image source={{
           uri: userData.barUrl
         }}
           style={styles.image}
+          accessible
+          accessibilityLabel={'No Pie Chart Found'}
+          onError={this._onImageLoadError}
         />
-      </View>
+      </ScrollView>
     );
   }
 }

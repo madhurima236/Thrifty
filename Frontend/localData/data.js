@@ -5,6 +5,6 @@ export var userData = {
     categoriesToPrice: {
 
     },
-    barUrl: null,
-    pieUrl: null
+    barUrl: '',
+    pieUrl: ''
 }

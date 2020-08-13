@@ -79,5 +79,24 @@ def single_bar_graph():
     return send_file(my_path + '/Charts/barchart.png')
 
 
+@app.route('/save', methods=['POST'])
+def save_data():
+    jsonData = request.data
+    jsonDict = ast.literal_eval(jsonData.decode('UTF-8'))
+    with open(my_path + '/userData/data', 'w') as fp:
+        json.dump(jsonDict, fp)
+    return {}, 200
+
+
+@app.route('/load', methods=['GET'])
+def load_data():
+    try:
+        with open(my_path + '/userData/data', 'r') as fp:
+            dic = json.load(fp)
+            return dic, 200
+    except Exception:
+        return {}, 200
+
+
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")

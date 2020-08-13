@@ -206,7 +206,7 @@ let getOverallCategories = async () => {
     });
 }
 
-let getOverallChart = async (id, type) => {
+let getOverallChart = async (type) => {
 
   return await fetch(`http://192.168.0.103:5000/` + type, {
     method: 'POST',
@@ -248,7 +248,18 @@ let uploadOverallBlobToFirebase = async (blob, type) => {
   console.log(url);
   return url;
 }
-
+let _storeData = async () => {
+  fetch(`http://192.168.0.103:5000/save`, {
+    method: 'POST',
+    headers: {
+      "accepts": "application/json",
+      "Access-Control-Allow-Origin": '*',
+      // 'Content-Type': 'multipart/form-data',
+    },
+    body: JSON.stringify(userData)
+  }).then(console.log('Save successful'))
+  .catch(error => console.log('Error in saving'));
+};
 
 // class Media extends Component {
 function Media() {
@@ -315,7 +326,7 @@ function Media() {
               let overallPieUrl = await getOverallChart('pie');
               let overallBarUrl = await getOverallChart('bar');
 
-              receiptData = {
+              let receiptData = {
                 image: receiptUrl,
                 categoriesToPrice: categoriesToPrice,
                 pie: pieUrl,
@@ -327,6 +338,7 @@ function Media() {
               userData.pieUrl = overallPieUrl;
               userData.barUrl = overallBarUrl;
               console.log(userData);
+              _storeData();
 
               // console.log('photo', photo);
               // uploadImageFetch(photo, 'categorize');
