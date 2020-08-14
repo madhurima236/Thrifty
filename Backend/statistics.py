@@ -24,7 +24,7 @@ class Statistics:
             self.prices.append(self.categories_to_price[category])
 
     def pie_chart(self):
-        plt.pie(self.prices, labels=self.categories, autopct='%0.1f%',
+        plt.pie(self.prices, labels=self.categories, autopct='%0.1f%%',
                 labeldistance=1.3, radius=1.4)
         plt.gcf().set_size_inches([18, 10])
 
@@ -98,7 +98,7 @@ class MultipleReceipts:
 if __name__ == '__main__':
     walmart_receipts = MultipleReceipts()
     walmart_receipts.add_receipt(
-        "/Users/soumy/PycharmProjects/Thrifty/Backend/WalmartReceipts/receipt-ocr-original.jpg")
+        "/Users/AdvayaGupta/Desktop/Coding/Thrifty/Backend/WalmartReceipts/receipt-ocr-original.jpg")
     receipt_stats = Statistics(walmart_receipts.categories_to_prices)
     receipt_stats.bar_graphs()
     receipt_stats.pie_chart()

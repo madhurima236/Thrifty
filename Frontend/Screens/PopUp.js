@@ -6,6 +6,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 var { width, height } = Dimensions.get("window");
 
 export default function PopUp(props) {
+  var pieUrl, barUrl;
+  
+  if(props.route){
+    pieUrl = props.route.params.pieUrl;
+    barUrl = props.route.params.barUrl;
+  } else {
+    pieUrl = props.pieUrl;
+    barUrl = props.barUrl;
+  }
+  console.log(pieUrl);
   return (
     <SafeAreaView style={styles.container}>
       {/* <ScrollView contentContainerStyle={{ flex: 1 }}> */}
@@ -14,7 +24,7 @@ export default function PopUp(props) {
         source={{
           // uri: userData.pieUrl
           uri:
-            props.pieUrl,
+            pieUrl,
         }}
         style={styles.image}
         // accessible
@@ -25,7 +35,7 @@ export default function PopUp(props) {
         source={{
           // uri: userData.barUrl,
           uri:
-            props.barUrl,
+            barUrl,
         }}
         style={styles.image}
         // accessible
@@ -45,7 +55,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    padding: 180,
+    padding: 190,
     backgroundColor: "#fff",
   },
   scrollView: {

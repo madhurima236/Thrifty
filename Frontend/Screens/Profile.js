@@ -69,7 +69,8 @@ function getImage(image_uri, key, pie_uri, bar_uri, navigator) {
   console.log(image_uri)
   return (
     <TouchableOpacity key={parseInt(key)} style={[{ width: (width) / 3 }, { height: (width) / 3 }]} onPress={() => {
-      console.log(pie_uri)
+      console.log(pie_uri);
+      console.log(bar_uri);
       navigator.navigate('PopUp', {
         pieUrl: pie_uri,
         barUrl: bar_uri
@@ -117,5 +118,6 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // padding: 180
   },
 });
