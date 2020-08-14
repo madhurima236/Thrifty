@@ -8,7 +8,7 @@ import {
   Dimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import PopUp from './PopUp';
+import PopUp from "./PopUp";
 
 var { width, height } = Dimensions.get("window");
 
@@ -61,8 +61,10 @@ class Statistics extends Component {
       //   />
       //   {/* </ScrollView> */}
       // </SafeAreaView>
-      <PopUp pieUrl="https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/pie_5?alt=media&token=3796254e-1801-49f7-9fa8-e8a51e6940e1"
-        barUrl="https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/bar_5?alt=media&token=8243f88a-a8c5-478a-ba18-7f5007b33bcc" />
+      <PopUp
+        pieUrl="https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/pie_5?alt=media&token=3796254e-1801-49f7-9fa8-e8a51e6940e1"
+        barUrl="https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/bar_5?alt=media&token=8243f88a-a8c5-478a-ba18-7f5007b33bcc"
+      />
     );
   }
 }
