@@ -71,10 +71,10 @@ class Profile extends Component {
       });
   }
 
-  getImage(image_uri) {
+  getImage(image_uri, index) {
     console.log(image_uri)
     return(
-      <View style={[{width:(width)/3}, {height:(width)/3}]}>
+      <View key={index} style={[{width:(width)/3}, {height:(width)/3}]}>
         <Image 
         style={{flex:1, width:undefined, height:undefined }}
         source={{uri: image_uri}}
@@ -87,13 +87,12 @@ class Profile extends Component {
   rendersection() {
     for (var receipt in dict_image.receipts){
       console.log(receipt)
-      console.log(receipt.image)
+      let imageUrl = dict_image.receipts[receipt].image
       console.log("THIS IS WORKING")
-      for ( var key in receipt){
-        if (key == "image"){
-        return(this.getImage(key));
-        }
-      }
+      return(this.getImage(imageUrl, receipt));
+      // for ( var key in receipt){
+      //   return(this.getImage(receipt[key].image));
+      // }
     }
   }
 
