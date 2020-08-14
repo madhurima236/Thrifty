@@ -10,6 +10,12 @@ class Statistics extends Component {
     console.warn(event.nativeEvent.error);
     this.setState({ error: true });
   }
+  componentDidMount() {
+    this.props.navigation.addListener('focus', () => {
+      console.log('Profile in focus');
+      this.render()
+    });
+  }
   render() {
     let { error } = this.state;
 

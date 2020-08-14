@@ -125,7 +125,7 @@ let uploadImageFetch = async (source) => {
     name: 'receipt'
   });
   console.log('Calling fetch with body: ' + JSON.stringify(data));
-  return await fetch(`http://192.168.0.103:5000/` + 'upload', {
+  return await fetch(`http://192.168.0.102:5000/` + 'upload', {
     method: 'POST',
     headers: {
       "accepts": "application/json",
@@ -146,7 +146,7 @@ let uploadImageFetch = async (source) => {
 
 let getReceiptCategories = async (id) => {
 
-  return await fetch(`http://192.168.0.103:5000/` + 'single_categorize', {
+  return await fetch(`http://192.168.0.102:5000/` + 'single_categorize', {
     method: 'POST',
     headers: {
       "accepts": "application/json",
@@ -168,7 +168,7 @@ let getReceiptCategories = async (id) => {
 
 let getReceiptChart = async (id, type) => {
 
-  return await fetch(`http://192.168.0.103:5000/` + 'single_' + type, {
+  return await fetch(`http://192.168.0.102:5000/` + 'single_' + type, {
     method: 'POST',
     headers: {
       "accepts": "application/json",
@@ -188,7 +188,7 @@ let getReceiptChart = async (id, type) => {
 }
 
 let getOverallCategories = async () => {
-  return await fetch(`http://192.168.0.103:5000/` + 'categorize', {
+  return await fetch(`http://192.168.0.102:5000/` + 'categorize', {
     method: 'POST',
     headers: {
       "accepts": "application/json",
@@ -208,7 +208,7 @@ let getOverallCategories = async () => {
 
 let getOverallChart = async (type) => {
 
-  return await fetch(`http://192.168.0.103:5000/` + type, {
+  return await fetch(`http://192.168.0.102:5000/` + type, {
     method: 'POST',
     headers: {
       "accepts": "application/json",
@@ -249,7 +249,8 @@ let uploadOverallBlobToFirebase = async (blob, type) => {
   return url;
 }
 let _storeData = async () => {
-  fetch(`http://192.168.0.103:5000/save`, {
+  console.log(JSON.stringify(userData));
+  fetch(`http://192.168.0.102:5000/save`, {
     method: 'POST',
     headers: {
       "accepts": "application/json",

@@ -64,7 +64,7 @@ export default class Thrifty extends Component {
     };
   }
   _retrieveData = async () => {
-    fetch(`http://192.168.0.103:5000/load`, {
+    fetch(`http://192.168.0.102:5000/load`, {
       method: 'GET',
       headers: {
         "accepts": "application/json",
@@ -74,8 +74,8 @@ export default class Thrifty extends Component {
       body: null
     }).then(response => response.json())
       .then(responseJson => {
-        if (responseJson !== null && responseJson != {}) {
-          // console.log(responseJson)
+        if (responseJson !== null && JSON.stringify(responseJson) !== JSON.stringify({})) {
+          console.log(responseJson)
           userData.receipts = responseJson.receipts
           userData.categoriesToPrice = responseJson.categoriesToPrice
           userData.barUrl = responseJson.barUrl
