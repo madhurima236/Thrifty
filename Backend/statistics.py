@@ -24,10 +24,9 @@ class Statistics:
             self.prices.append(self.categories_to_price[category])
 
     def pie_chart(self):
-        plt.pie(self.prices, labels=self.categories, autopct='%0.1f%%',
+        plt.pie(self.prices, labels=self.categories, autopct='%0.1f%',
                 labeldistance=1.3, radius=1.4)
-
-        plt.gcf().set_size_inches([20, 10])
+        plt.gcf().set_size_inches([18, 10])
 
         plt.savefig(my_path + '/Charts/piechart.png')
         plt.clf()
@@ -35,13 +34,13 @@ class Statistics:
     def bar_graphs(self):
         ypos = np.arange(len(self.categories))
 
-        plt.ylabel('Categories', fontsize=8)
-        plt.title('Categories Vs Expenditure')
-        plt.xticks(ypos, self.categories, rotation=45)
+        plt.ylabel('Categories', fontsize=10)
+        plt.title('Categories Vs Expenditure', fontsize=15)
+        plt.xticks(ypos, self.categories, rotation=45, fontsize=10)
         width = 0.6
 
         plt.bar(ypos, self.prices, width, capsize=3, color="magenta")
-        plt.gcf().set_size_inches([20, 10])
+        plt.gcf().set_size_inches([18, 10])
 
         plt.savefig(my_path + '/Charts/barchart.png')
         plt.clf()

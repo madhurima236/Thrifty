@@ -21,6 +21,7 @@ def hello_world():
 
 @app.route('/upload', methods=['POST'])
 def upload_receipt():
+    print('Upload called')
     img_file = request.files['receipt']
     img_file.save('Backend/WalmartReceipts/receipt')
     try:
@@ -83,7 +84,8 @@ def single_bar_graph():
 def save_data():
     jsonData = request.data
     jsonDict = ast.literal_eval(jsonData.decode('UTF-8'))
-    with open(my_path + '/userData/data', 'w') as fp:
+    print(jsonDict)
+    with open(my_path + '/userData/data.json', 'w') as fp:
         json.dump(jsonDict, fp)
     return {}, 200
 
@@ -91,7 +93,7 @@ def save_data():
 @app.route('/load', methods=['GET'])
 def load_data():
     try:
-        with open(my_path + '/userData/data', 'r') as fp:
+        with open(my_path + '/userData/data.json', 'r') as fp:
             dic = json.load(fp)
             return dic, 200
     except Exception:
