@@ -10,7 +10,6 @@ import {
   Alert,
   Image,
   ActivityIndicator,
-  Image
 } from "react-native";
 import firebase from "../Database/firebase";
 import { Fontisto } from "@expo/vector-icons";
