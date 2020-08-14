@@ -1,5 +1,7 @@
 # Thrifty Demo
 
+Check out our presentation on DevPost!
+
 Registration/Login added using Firebase User Authentication
 
 ![Registration Demo](Demo/Register.gif)
