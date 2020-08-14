@@ -26,6 +26,7 @@ import {
   MenuTrigger,
 } from "react-native-popup-menu";
 import { userData } from "../localData/data";
+import PopUp from './PopUp';
 
 var dict_image = {
   barUrl: "https://via.placeholder.com/300.png/09f/fff",
@@ -89,14 +90,14 @@ var dict_image = {
 var { width, height } = Dimensions.get("window");
 
 function getImage(image_uri, key) {
-  console.log(image_uri)
+  console.log(image_uri, pie_uri, bar_uri, navigator)
   return(
-    <View key={parseInt(key)} style={[{width:(width)/3}, {height:(width)/3}]}>
+    <TouchableOpacity key={parseInt(key)} style={[{width:(width)/3}, {height:(width)/3}]} onPress={() => {navigator.navigate()}}>
       <Image 
       style={{flex:1, width:undefined, height:undefined }}
       source={{uri: image_uri}}
       />
-    </View>
+    </TouchableOpacity>
   );
 }
 

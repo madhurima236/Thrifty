@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, ScrollView, Text, StyleSheet, Image, Dimensions } from "react-native";
 import { userData } from "../localData/data";
 import { SafeAreaView } from "react-native-safe-area-context";
+import PopUp from './PopUp';
 
 var { width, height } = Dimensions.get("window");
 
@@ -27,33 +28,35 @@ class Statistics extends Component {
       return <Text>{"No Pie Chart Found"}</Text>;
     }
     return (
-      <SafeAreaView style={styles.container}>
-        {/* <ScrollView contentContainerStyle={{ flex: 1 }}> */}
-        <Text style={{display: 'flex', width: width, textAlign: 'center'}}>Expenditure breakdown</Text>
-        <Image
-          source={{
-            // uri: userData.pieUrl
-            uri:
-              "https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/pie_5?alt=media&token=3796254e-1801-49f7-9fa8-e8a51e6940e1",
-          }}
-          style={styles.image}
-          accessible
-          accessibilityLabel={"No Pie Chart Found"}
-          onError={this._onImageLoadError}
-        />
-        <Image
-          source={{
-            // uri: userData.barUrl,
-            uri:
-              "https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/bar_5?alt=media&token=8243f88a-a8c5-478a-ba18-7f5007b33bcc",
-          }}
-          style={styles.image}
-          accessible
-          accessibilityLabel={"No Pie Chart Found"}
-          onError={this._onImageLoadError}
-        />
-        {/* </ScrollView> */}
-      </SafeAreaView>
+      // <SafeAreaView style={styles.container}>
+      //   {/* <ScrollView contentContainerStyle={{ flex: 1 }}> */}
+      //   <Text style={{display: 'flex', width: width, textAlign: 'center'}}>Expenditure breakdown</Text>
+      //   <Image
+      //     source={{
+      //       // uri: userData.pieUrl
+      //       uri:
+      //         "https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/pie_5?alt=media&token=3796254e-1801-49f7-9fa8-e8a51e6940e1",
+      //     }}
+      //     style={styles.image}
+      //     accessible
+      //     accessibilityLabel={"No Pie Chart Found"}
+      //     onError={this._onImageLoadError}
+      //   />
+      //   <Image
+      //     source={{
+      //       // uri: userData.barUrl,
+      //       uri:
+      //         "https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/bar_5?alt=media&token=8243f88a-a8c5-478a-ba18-7f5007b33bcc",
+      //     }}
+      //     style={styles.image}
+      //     accessible
+      //     accessibilityLabel={"No Pie Chart Found"}
+      //     onError={this._onImageLoadError}
+      //   />
+      //   {/* </ScrollView> */}
+      // </SafeAreaView>
+      <PopUp pieUrl="https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/pie_5?alt=media&token=3796254e-1801-49f7-9fa8-e8a51e6940e1"
+        barUrl="https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/bar_5?alt=media&token=8243f88a-a8c5-478a-ba18-7f5007b33bcc" />
     );
   }
 }
