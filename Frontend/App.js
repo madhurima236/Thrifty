@@ -17,7 +17,7 @@ function MyStack() {
       screenOptions={{
         headerTitleAlign: "center",
         headerStyle: {
-          backgroundColor: "#00d800",
+          backgroundColor: "#276955",
         },
         headerTintColor: "#fff",
         headerTitleStyle: {
@@ -45,7 +45,7 @@ function MyStack() {
         component={PopUp}
         options={({ title: "Statistics" }, { headerLeft: null })}
       />
-        {/* {(pieUrl, barUrl) => <PopUp pieUrl={pieUrl} barUrl={barUrl} />} */}
+      {/* {(pieUrl, barUrl) => <PopUp pieUrl={pieUrl} barUrl={barUrl} />} */}
       {/* </Stack.Screen> */}
     </Stack.Navigator>
   );
