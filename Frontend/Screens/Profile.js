@@ -115,12 +115,6 @@ class Profile extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* <Text> Profile </Text>
-        <Button
-          color="#00d800"
-          title="Settings"
-          onPress={() => navigation.navigate("Settings")}
-        /> */}
         <Content>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
             {Object.keys(dict_image.receipts).map((key, index) => {

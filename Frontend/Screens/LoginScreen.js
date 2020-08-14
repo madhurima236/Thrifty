@@ -8,6 +8,7 @@ import {
   TextInput,
   Button,
   Alert,
+  Image,
   ActivityIndicator,
 } from "react-native";
 import firebase from "../Database/firebase";
