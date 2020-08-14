@@ -1,5 +1,3 @@
-// components/signup.js
-
 import React, { Component } from "react";
 import {
   StyleSheet,
