@@ -217,7 +217,7 @@ class Receipt:
 
 if __name__ == '__main__':
     receipt = Receipt(
-        '/Backend/WalmartReceipts/receipt-ocr-original.jpg.png')
+        '/Backend/WalmartReceipts/receipt-ocr-original.jpg')
     receipt.get_data()
     receipt.create_categories()
     receipt.calculate_cost()
