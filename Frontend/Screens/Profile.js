@@ -112,13 +112,6 @@ class Profile extends Component {
       });
   }
 
-  // componentDidMount() {
-  //   this.props.navigation.addListener('focus', () => {
-  //     console.log('Profile in focus');
-  //     this.render()
-  //   });
-  // }
-
   render() {
     console.log('Profile rendered');
     return (
@@ -146,7 +139,5 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: "center",
-    // justifyContent: "center",
   },
 });
