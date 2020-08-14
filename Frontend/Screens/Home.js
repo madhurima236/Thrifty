@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, Dimensions } from "react-native";
+import { Text, View, StyleSheet, Image, Dimensions } from "react-native";
 import { Content } from "native-base";
 import firebase from "../Database/firebase";
 
@@ -9,16 +9,13 @@ var images = [
   "http://eatsnaturalfoods.com/wp-content/uploads/2020/04/storefront.jpg",
 ];
 
-var { width, height } = Dimensions.get("window");
+// var { width, height } = Dimensions.get("window");
 
 function getImage(image_uri, index) {
   console.log(image_uri);
   return (
-    <View key={index} style={[{ width: width }, { height: width }]}>
-      <Image
-        style={{ flex: 1, width: undefined, height: undefined }}
-        source={{ uri: image_uri }}
-      />
+    <View key={index}>
+      <Image style={styles.image} source={{ uri: image_uri }} />
     </View>
   );
 }
@@ -43,6 +40,17 @@ class Home extends Component {
     return (
       <View style={styles.container}>
         <Content>
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: 100,
+              textAlign: "center",
+              paddingBottom: 20,
+            }}
+          >
+            Let's all support local businesses amidst this pandemic. Click on
+            the links in the descriptions to shop from their speciifc websites.
+          </Text>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
             {this.renderSection()}
           </View>
@@ -56,5 +64,16 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
+  },
+  image: {
+    flex: 1,
+    width: 200,
+    height: 200,
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 160,
+    paddingBottom: 60,
+    margin: 5,
   },
 });

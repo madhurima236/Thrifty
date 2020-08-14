@@ -60,32 +60,6 @@ var dict_image = {
       image: "https://via.placeholder.com/300.png/09f/fff",
       pie: "https://via.placeholder.com/300.png/09f/fff",
     },
-    // "2": {
-    //   "bar": "https://via.placeholder.com/300.png/09f/fff",
-    //   "categoriesToPrice": {
-    //     "Business & Industrial": 1,
-    //     "Computers & Electronics": 4.97,
-    //     "Food & Drink": 15.158,
-    //     "Health": 1,
-    //     "Hobbies & Leisure": 88.94999999999999,
-    //     "Shopping": 11.940000000000001,
-    //   },
-    //   "image": "https://via.placeholder.com/300.png/09f/fff",
-    //   "pie": "https://via.placeholder.com/300.png/09f/fff",
-    // },
-    // "4": {
-    //   "bar": "https://via.placeholder.com/300.png/09f/fff",
-    //   "categoriesToPrice": {
-    //     "Business & Industrial": 1,
-    //     "Computers & Electronics": 4.97,
-    //     "Food & Drink": 15.158,
-    //     "Health": 1,
-    //     "Hobbies & Leisure": 88.94999999999999,
-    //     "Shopping": 11.940000000000001,
-    //   },
-    //   "image": "https://via.placeholder.com/300.png/09f/fff",
-    //   "pie": "https://via.placeholder.com/300.png/09f/fff",
-    // },
   },
 };
 
@@ -126,12 +100,6 @@ class Profile extends Component {
     console.log("Profile rendered");
     return (
       <View style={styles.container}>
-        {/* <Text> Profile </Text>
-        <Button
-          color="#00d800"
-          title="Settings"
-          onPress={() => navigation.navigate("Settings")}
-        /> */}
         <Content>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
             {Object.keys(userData.receipts).map((key, index) => {
