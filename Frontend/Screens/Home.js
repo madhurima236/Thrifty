@@ -49,7 +49,7 @@ class Home extends Component {
             }}
           >
             Let's all support local businesses amidst this pandemic. Click on
-            the links in the descriptions to shop from their speciifc websites.
+            the images to shop from their speciifc websites.
           </Text>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
             {this.renderSection()}
