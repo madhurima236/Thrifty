@@ -83,14 +83,8 @@ export default class Signup extends Component {
           alignItems: "center",
         }}
       >
-        {/* <Fontisto
-          name="shopping-bag-1"
-          size={150}
-          color="black"
-          style={{ height: 200 }}
-        /> */}
         <Image source={logo} style={{ height: 200, width: 200 }} />
-        <Text>
+        <Text style={{ padding: 30 }}>
           Sign up to track your expenditure and get a categorical breakdown.
         </Text>
 
@@ -145,6 +139,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginBottom: 15,
     paddingBottom: 15,
+    paddingTop: 15,
     alignSelf: "center",
     borderColor: "#ccc",
     borderBottomWidth: 1,
