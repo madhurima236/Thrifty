@@ -1,6 +1,12 @@
 import React, { Component } from "react";
-import { View, ScrollView, Text, StyleSheet, Image, Dimensions } from "react-native";
-import { userData } from "../localData/data";
+import {
+  View,
+  ScrollView,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import PopUp from './PopUp';
 
@@ -13,7 +19,7 @@ class Statistics extends Component {
   _onImageLoadError = (event) => {
     console.warn(event.nativeEvent.error);
     this.setState({ error: true });
-  }
+  };
   // componentDidMount() {
   //   this.props.navigation.addListener('focus', () => {
   //     console.log('Profile in focus');

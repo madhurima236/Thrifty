@@ -1,5 +1,3 @@
-// components/login.js
-
 import React, { Component } from "react";
 import {
   StyleSheet,
@@ -8,8 +6,8 @@ import {
   TextInput,
   Button,
   Alert,
+  Image,
   ActivityIndicator,
-  Image
 } from "react-native";
 import firebase from "../Database/firebase";
 import { Fontisto } from "@expo/vector-icons";
@@ -78,12 +76,6 @@ export default class Login extends Component {
           alignItems: "center",
         }}
       >
-        {/* <Fontisto
-          name="shopping-bag-1"
-          size={150}
-          color="black"
-          style={{ height: 250 }}
-        /> */}
         <Image source={logo} style={{ height: 200, width: 200 }} />
         <TextInput
           style={styles.inputStyle}
@@ -130,6 +122,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginBottom: 15,
     paddingBottom: 15,
+    paddingTop: 30,
     alignSelf: "center",
     borderColor: "#ccc",
     borderBottomWidth: 1,
