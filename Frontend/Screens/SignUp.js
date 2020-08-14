@@ -89,7 +89,7 @@ export default class Signup extends Component {
           color="black"
           style={{ height: 200 }}
         /> */}
-        <Image source={logo} style={{ height: 200 }} />
+        <Image source={logo} style={{ height: 200, width: 200 }} />
         <Text>
           Sign up to track your expenditure and get a categorical breakdown.
         </Text>

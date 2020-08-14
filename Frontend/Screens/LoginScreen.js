@@ -10,6 +10,7 @@ import {
   Alert,
   Image,
   ActivityIndicator,
+  Image
 } from "react-native";
 import firebase from "../Database/firebase";
 import { Fontisto } from "@expo/vector-icons";
@@ -84,7 +85,7 @@ export default class Login extends Component {
           color="black"
           style={{ height: 250 }}
         /> */}
-        <Image source={logo} style={{ height: 200 }} />
+        <Image source={logo} style={{ height: 200, width: 200 }} />
         <TextInput
           style={styles.inputStyle}
           placeholder="Email"

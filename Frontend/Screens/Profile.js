@@ -88,10 +88,13 @@ var dict_image = {
 
 var { width, height } = Dimensions.get("window");
 
-function getImage(image_uri) {
+function getImage(image_uri, key) {
   console.log(image_uri);
   return (
-    <View style={[{ width: width / 3 }, { height: width / 3 }]}>
+    <View
+      key={parseInt(key)}
+      style={[{ width: width / 3 }, { height: width / 3 }]}
+    >
       <Image
         style={{ flex: 1, width: undefined, height: undefined }}
         source={{ uri: image_uri }}
@@ -112,13 +115,27 @@ class Profile extends Component {
       });
   }
 
+  // componentDidMount() {
+  //   this.props.navigation.addListener('focus', () => {
+  //     console.log('Profile in focus');
+  //     this.render()
+  //   });
+  // }
+
   render() {
+    console.log("Profile rendered");
     return (
       <View style={styles.container}>
+        {/* <Text> Profile </Text>
+        <Button
+          color="#00d800"
+          title="Settings"
+          onPress={() => navigation.navigate("Settings")}
+        /> */}
         <Content>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-            {Object.keys(dict_image.receipts).map((key, index) => {
-              return getImage(dict_image.receipts[key].image);
+            {Object.keys(userData.receipts).map((key, index) => {
+              return getImage(userData.receipts[key].image, key);
             })}
           </View>
         </Content>
