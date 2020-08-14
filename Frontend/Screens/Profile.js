@@ -49,7 +49,11 @@ class Profile extends Component {
         <View key={index} style={[{width:(width)/3}, {height:(width)/3}]}>
           <Image 
           style={{flex:1, width:undefined, height:undefined }}
-          source={{uri="https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/receipt_10?alt=media&token=09e78494-062e-4e3e-a9e0-ed027126ff4c"}}
+          source={
+            {
+              uri: "https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/receipt_10?alt=media&token=09e78494-062e-4e3e-a9e0-ed027126ff4c",
+            }
+          }
           />
         </View>
       )
