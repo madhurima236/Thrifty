@@ -85,8 +85,11 @@ export default class Signup extends Component {
           name="shopping-bag-1"
           size={150}
           color="black"
-          style={{ height: 250 }}
+          style={{ height: 200 }}
         />
+        <Text>
+          Sign up to track your expenditure and get a categorical breakdown.
+        </Text>
 
         <TextInput
           style={styles.inputStyle}

@@ -109,12 +109,12 @@ class Profile extends Component {
       });
   }
 
-  componentDidMount() {
-    this.props.navigation.addListener('focus', () => {
-      console.log('Profile in focus');
-      this.render()
-    });
-  }
+  // componentDidMount() {
+  //   this.props.navigation.addListener('focus', () => {
+  //     console.log('Profile in focus');
+  //     this.render()
+  //   });
+  // }
 
   render() {
     console.log('Profile rendered');
