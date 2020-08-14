@@ -9,10 +9,12 @@ import {
   Button,
   Alert,
   ActivityIndicator,
+  Image,
 } from "react-native";
 import firebase from "../Database/firebase";
 import { Fontisto } from "@expo/vector-icons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import logo from "../assets/logo.png";
 
 export default class Signup extends Component {
   constructor() {
@@ -81,12 +83,13 @@ export default class Signup extends Component {
           alignItems: "center",
         }}
       >
-        <Fontisto
+        {/* <Fontisto
           name="shopping-bag-1"
           size={150}
           color="black"
           style={{ height: 200 }}
-        />
+        /> */}
+        <Image source={logo} style={{ height: 200, width: 200 }} />
         <Text>
           Sign up to track your expenditure and get a categorical breakdown.
         </Text>

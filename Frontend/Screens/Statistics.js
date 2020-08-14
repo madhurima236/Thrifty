@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { View, ScrollView, Text, StyleSheet, Image } from "react-native";
+import { View, ScrollView, Text, StyleSheet, Image, Dimensions } from "react-native";
 import { userData } from "../localData/data";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+var { width, height } = Dimensions.get("window");
 
 class Statistics extends Component {
   state = {
@@ -27,7 +29,7 @@ class Statistics extends Component {
     return (
       <SafeAreaView style={styles.container}>
         {/* <ScrollView contentContainerStyle={{ flex: 1 }}> */}
-        <Text>Expenditure breakdown</Text>
+        <Text style={{display: 'flex', width: width, textAlign: 'center'}}>Expenditure breakdown</Text>
         <Image
           source={{
             // uri: userData.pieUrl
@@ -64,14 +66,14 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    padding: 180,
+    padding: 200,
     backgroundColor: "#fff",
   },
   scrollView: {
     flex: 1,
   },
   image: {
-    padding: 100,
+    padding: 90,
     width: "100%",
     height: "100%",
   },

@@ -9,10 +9,12 @@ import {
   Button,
   Alert,
   ActivityIndicator,
+  Image
 } from "react-native";
 import firebase from "../Database/firebase";
 import { Fontisto } from "@expo/vector-icons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import logo from "../assets/logo.png";
 
 export default class Login extends Component {
   constructor() {
@@ -76,12 +78,13 @@ export default class Login extends Component {
           alignItems: "center",
         }}
       >
-        <Fontisto
+        {/* <Fontisto
           name="shopping-bag-1"
           size={150}
           color="black"
           style={{ height: 250 }}
-        />
+        /> */}
+        <Image source={logo} style={{ height: 200, width: 200 }} />
         <TextInput
           style={styles.inputStyle}
           placeholder="Email"

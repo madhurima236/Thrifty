@@ -6,7 +6,7 @@ import {
   Image,
   Dimensions,
   Settings,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import {
   Icon,
@@ -24,38 +24,38 @@ import {
   MenuOptions,
   MenuOption,
   MenuTrigger,
-} from 'react-native-popup-menu';
+} from "react-native-popup-menu";
 import { userData } from "../localData/data";
 
 var dict_image = {
-  "barUrl": "https://via.placeholder.com/300.png/09f/fff",
-  "pieUrl": "https://via.placeholder.com/300.png/09f/fff",
-  "receipts": {
+  barUrl: "https://via.placeholder.com/300.png/09f/fff",
+  pieUrl: "https://via.placeholder.com/300.png/09f/fff",
+  receipts: {
     "1": {
-      "bar": "https://via.placeholder.com/300.png/09f/fff",
-      "categoriesToPrice": {
+      bar: "https://via.placeholder.com/300.png/09f/fff",
+      categoriesToPrice: {
         "Business & Industrial": 1,
         "Computers & Electronics": 4.97,
         "Food & Drink": 15.158,
-        "Health": 1,
+        Health: 1,
         "Hobbies & Leisure": 88.94999999999999,
-        "Shopping": 11.940000000000001,
+        Shopping: 11.940000000000001,
       },
-      "image": "https://via.placeholder.com/300.png/09f/fff",
-      "pie": "https://via.placeholder.com/300.png/09f/fff",
+      image: "https://via.placeholder.com/300.png/09f/fff",
+      pie: "https://via.placeholder.com/300.png/09f/fff",
     },
     "3": {
-      "bar": "https://via.placeholder.com/300.png/09f/fff",
-      "categoriesToPrice": {
+      bar: "https://via.placeholder.com/300.png/09f/fff",
+      categoriesToPrice: {
         "Business & Industrial": 1,
         "Computers & Electronics": 4.97,
         "Food & Drink": 15.158,
-        "Health": 1,
+        Health: 1,
         "Hobbies & Leisure": 88.94999999999999,
-        "Shopping": 11.940000000000001,
+        Shopping: 11.940000000000001,
       },
-      "image": "https://via.placeholder.com/300.png/09f/fff",
-      "pie": "https://via.placeholder.com/300.png/09f/fff",
+      image: "https://via.placeholder.com/300.png/09f/fff",
+      pie: "https://via.placeholder.com/300.png/09f/fff",
     },
     // "2": {
     //   "bar": "https://via.placeholder.com/300.png/09f/fff",
@@ -84,9 +84,9 @@ var dict_image = {
     //   "pie": "https://via.placeholder.com/300.png/09f/fff",
     // },
   },
-}
+};
 
-var {width, height} = Dimensions.get('window')
+var { width, height } = Dimensions.get("window");
 
 function getImage(image_uri, key) {
   console.log(image_uri)
@@ -102,8 +102,11 @@ function getImage(image_uri, key) {
 
 class Profile extends Component {
   constructor(props) {
-    super(props)
-    firebase.database().ref(`${firebase.auth().currentUser.uid}`).once('value')
+    super(props);
+    firebase
+      .database()
+      .ref(`${firebase.auth().currentUser.uid}`)
+      .once("value")
       .then((snapshot) => {
         console.log(snapshot.val());
       });
@@ -130,13 +133,13 @@ class Profile extends Component {
           <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
             {Object.keys(userData.receipts).map((key, index) => {
               return getImage(userData.receipts[key].image, key)
+
             })}
           </View>
         </Content>
       </View>
     );
   }
-  
 }
 export default Profile;
 
@@ -146,5 +149,4 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     // justifyContent: "center",
   },
-  
 });
