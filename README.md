@@ -10,12 +10,14 @@ Home displays a list of local businesses that can be supported amidst pandemic
 
 
 
-![Profile Demo](Demo/Profile.gif)
+![Camera Demo](Demo/ClickPicture.gif)
 
+
+![Profile Demo](Demo/Profile.gif)
 
 
 ![Statistics Demo](Demo/Stats.gif)
 
 
 
-![Camera Demo](Demo/ClickPicture.gif)
+
