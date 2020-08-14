@@ -7,7 +7,6 @@ var { width, height } = Dimensions.get("window");
 
 export default function PopUp(props) {
   var pieUrl, barUrl;
-  
   if(props.route){
     pieUrl = props.route.params.pieUrl;
     barUrl = props.route.params.barUrl;
