@@ -8,6 +8,7 @@ import {
   TextInput,
   Button,
   Alert,
+  Image,
   ActivityIndicator,
   Image
 } from "react-native";

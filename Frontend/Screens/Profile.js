@@ -89,12 +89,15 @@ var dict_image = {
 var { width, height } = Dimensions.get("window");
 
 function getImage(image_uri, key) {
-  console.log(image_uri)
-  return(
-    <View key={parseInt(key)} style={[{width:(width)/3}, {height:(width)/3}]}>
-      <Image 
-      style={{flex:1, width:undefined, height:undefined }}
-      source={{uri: image_uri}}
+  console.log(image_uri);
+  return (
+    <View
+      key={parseInt(key)}
+      style={[{ width: width / 3 }, { height: width / 3 }]}
+    >
+      <Image
+        style={{ flex: 1, width: undefined, height: undefined }}
+        source={{ uri: image_uri }}
       />
     </View>
   );
@@ -113,7 +116,7 @@ class Profile extends Component {
   }
 
   render() {
-    console.log('Profile rendered');
+    console.log("Profile rendered");
     return (
       <View style={styles.container}>
         {/* <Text> Profile </Text>
@@ -122,11 +125,10 @@ class Profile extends Component {
           title="Settings"
           onPress={() => navigation.navigate("Settings")}
         /> */}
-        <Content> 
-          <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+        <Content>
+          <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
             {Object.keys(userData.receipts).map((key, index) => {
-              return getImage(userData.receipts[key].image, key)
-
+              return getImage(userData.receipts[key].image, key);
             })}
           </View>
         </Content>
