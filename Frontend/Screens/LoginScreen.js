@@ -10,7 +10,6 @@ import {
   ActivityIndicator,
 } from "react-native";
 import firebase from "../Database/firebase";
-import { Fontisto } from "@expo/vector-icons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import logo from "../assets/logo.png";
 
@@ -92,7 +91,7 @@ export default class Login extends Component {
           secureTextEntry={true}
         />
         <Button
-          color="#00d800"
+          color="#276955"
           title="Sign in"
           onPress={() => this.userLogin()}
         />
@@ -128,7 +127,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   loginText: {
-    color: "#00d800",
+    color: "#276955",
     marginTop: 25,
     textAlign: "center",
   },

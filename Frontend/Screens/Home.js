@@ -6,7 +6,7 @@ import firebase from "../Database/firebase";
 var images = [
   "https://bloximages.newyork1.vip.townnews.com/collegiatetimes.com/content/tncms/assets/v3/editorial/1/23/123a58d2-8057-11e6-a666-2fe215f72aec/57e31f8a72ee6.image.jpg?resize=1200%2C798",
   "https://blacksburgfarmersmarket.com/wp-content/uploads/2019/03/vendor-greenbeans-2019.jpg",
-  "http://eatsnaturalfoods.com/wp-content/uploads/2020/04/storefront.jpg",
+  "https://gray-wdbj-prod.cdn.arcpublishing.com/resizer/7X_vXrufafGiriKIm_pcUwTZA3A=/980x0/smart/cloudfront-us-east-1.images.arcpublishing.com/gray/SAFFPPBTYFGZTP3X6CDCAXF7B4.jpg",
 ];
 
 // var { width, height } = Dimensions.get("window");
@@ -49,7 +49,7 @@ class Home extends Component {
             }}
           >
             Let's all support local businesses amidst this pandemic. Click on
-            the links in the descriptions to shop from their speciifc websites.
+            the images to shop from their speciifc websites.
           </Text>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
             {this.renderSection()}

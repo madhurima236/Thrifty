@@ -5,46 +5,54 @@ import { StyleSheet, View, Text, Button, AsyncStorage } from "react-native";
 import firebase from "../Database/firebase";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Fontisto } from "@expo/vector-icons";
-import { userData } from '../localData/data';
+import { userData } from "../localData/data";
 
 import Media from "./Media";
 import Profile from "./Profile";
 import Statistics from "./Statistics";
 import Home from "./Home";
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faHome, faUser, faChartPie, faCamera } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import {
+  faHome,
+  faUser,
+  faChartPie,
+  faCamera,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Tab = createBottomTabNavigator();
 
 function MyTabs() {
   return (
-    <Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, size }) => {
-        let iconName;
-        let color = focused ? '#00d800' : 'gray';
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, size }) => {
+          let iconName;
+          let color = focused ? "#276955" : "gray";
 
-        switch (route.name) {
-          case 'Home':
-            iconName = faHome
-            break;
-          case 'Profile':
-            // iconName = focused ? 'fa fa-user' : 'fa fa-user-outline';
-            iconName = faUser;
-            break;
-          case 'Media':
-            // iconName = focused ? 'fa fa-camera' : 'fa fa-camera-outline';
-            iconName = faCamera;
-            break;
-          case 'Statistics':
-            // iconName = focused ? 'fa fa-chart-pie': 'fa fa-chart-pie-outline'
-            iconName = faChartPie;
-        }
+          switch (route.name) {
+            case "Home":
+              iconName = faHome;
+              break;
+            case "Profile":
+              // iconName = focused ? 'fa fa-user' : 'fa fa-user-outline';
+              iconName = faUser;
+              break;
+            case "Media":
+              // iconName = focused ? 'fa fa-camera' : 'fa fa-camera-outline';
+              iconName = faCamera;
+              break;
+            case "Statistics":
+              // iconName = focused ? 'fa fa-chart-pie': 'fa fa-chart-pie-outline'
+              iconName = faChartPie;
+          }
 
-        // You can return any component that you like here!
-        // return <Icon name={iconName} size={size} color={color} />;
-        return <FontAwesomeIcon icon={iconName} size={size} color={color} />
-      },
-    })}>
+          // You can return any component that you like here!
+          // return <Icon name={iconName} size={size} color={color} />;
+          return <FontAwesomeIcon icon={iconName} size={size} color={color} />;
+        },
+      })}
+    >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Profile" component={Profile} />
       <Tab.Screen name="Media" component={Media} />
@@ -65,24 +73,28 @@ export default class Thrifty extends Component {
   }
   _retrieveData = async () => {
     fetch(`http://192.168.0.102:5000/load`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        "accepts": "application/json",
-        "Access-Control-Allow-Origin": '*',
+        accepts: "application/json",
+        "Access-Control-Allow-Origin": "*",
         // 'Content-Type': 'multipart/form-data',
       },
-      body: null
-    }).then(response => response.json())
-      .then(responseJson => {
-        if (responseJson !== null && JSON.stringify(responseJson) !== JSON.stringify({})) {
-          console.log(responseJson)
-          userData.receipts = responseJson.receipts
-          userData.categoriesToPrice = responseJson.categoriesToPrice
-          userData.barUrl = responseJson.barUrl
-          userData.pieUrl = responseJson.pieUrl
+      body: null,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        if (
+          responseJson !== null &&
+          JSON.stringify(responseJson) !== JSON.stringify({})
+        ) {
+          console.log(responseJson);
+          userData.receipts = responseJson.receipts;
+          userData.categoriesToPrice = responseJson.categoriesToPrice;
+          userData.barUrl = responseJson.barUrl;
+          userData.pieUrl = responseJson.pieUrl;
         }
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   };
   signOut = () => {
     firebase
