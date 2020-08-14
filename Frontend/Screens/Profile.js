@@ -57,10 +57,35 @@ var dict_image = {
       "image": "https://via.placeholder.com/300.png/09f/fff",
       "pie": "https://via.placeholder.com/300.png/09f/fff",
     },
+    "2": {
+      "bar": "https://via.placeholder.com/300.png/09f/fff",
+      "categoriesToPrice": {
+        "Business & Industrial": 1,
+        "Computers & Electronics": 4.97,
+        "Food & Drink": 15.158,
+        "Health": 1,
+        "Hobbies & Leisure": 88.94999999999999,
+        "Shopping": 11.940000000000001,
+      },
+      "image": "https://via.placeholder.com/300.png/09f/fff",
+      "pie": "https://via.placeholder.com/300.png/09f/fff",
+    },
   },
 }
 
 var {width, height} = Dimensions.get('window')
+
+function getImage(image_uri) {
+  console.log(image_uri)
+  return(
+    <View style={[{width:(width)/3}, {height:(width)/3}]}>
+      <Image 
+      style={{flex:1, width:undefined, height:undefined }}
+      source={{uri: image_uri}}
+      />
+    </View>
+  );
+}
 
 class Profile extends Component {
   constructor(props) {
@@ -71,22 +96,9 @@ class Profile extends Component {
       });
   }
 
-  getImage(image_uri) {
-    console.log(image_uri)
-    return(
-      <View style={[{width:(width)/3}, {height:(width)/3}]}>
-        <Image 
-        style={{flex:1, width:undefined, height:undefined }}
-        source={{uri: image_uri}}
-        />
-      </View>
-    );
-  }
-
   rendersection() {
     for (var receipt in dict_image.receipts){
       let imageUrl = dict_image.receipts[receipt].image
-      console.log("THIS IS WORKING")
       return(this.getImage(imageUrl));
     }
   }
@@ -102,7 +114,9 @@ class Profile extends Component {
         /> */}
         <Content> 
           <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-            {this.rendersection()}
+            {Object.keys(dict_image.receipts).map((key, index) => {
+              return getImage(dict_image.receipts[key].image)
+            })}
           </View>
         </Content>
       </View>
