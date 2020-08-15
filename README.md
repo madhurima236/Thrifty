@@ -1,6 +1,6 @@
 # Thrifty Demo
 
-Check out our presentation on DevPost!
+Check out our presentation on DevPost, https://devpost.com/software/thrifty-69fay0!
 
 Registration/Login added using Firebase User Authentication
 
