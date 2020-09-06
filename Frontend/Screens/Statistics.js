@@ -62,8 +62,8 @@ class Statistics extends Component {
       //   {/* </ScrollView> */}
       // </SafeAreaView>
       <PopUp
-        pieUrl="https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/pie_5?alt=media&token=3796254e-1801-49f7-9fa8-e8a51e6940e1"
-        barUrl="https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/bar_5?alt=media&token=8243f88a-a8c5-478a-ba18-7f5007b33bcc"
+        pieUrl="https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/piechart.png?alt=media&token=0434c912-2a55-4e06-857a-96bb8807d154"
+        barUrl="https://firebasestorage.googleapis.com/v0/b/thrifty-c8d4b.appspot.com/o/barchart.png?alt=media&token=9560ae94-e41f-48f5-b8f9-5f8c00c37107"
       />
     );
   }
